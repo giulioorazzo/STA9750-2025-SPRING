@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Giulio Orazzo">
+<meta name="dcterms.date" content="2025-03-03">
+
+<title>City Payroll Data Analysis (Mini Project 1) – STA 9750 Submission Material</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-4418bf51ef03b784a8a869d6bbfa3ff6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+
+<script src="site_libs/datatables-binding-0.33/datatables.js"></script>
+
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
+
+<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
+
+
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">STA 9750 Submission Material</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">City Payroll Data Analysis (Mini Project 1)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Giulio Orazzo </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 3, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="statement" class="level1">
+<h1>Statement</h1>
+<p>As a newly appointed senior technical analyst for New York City’s Commission to Analyze Taxpayer Spending (CATS), I have been tasked by Commission Chair Mr.&nbsp;Keno Slum to examine the city’s payroll expenditures. The objective is to provide the Commissioners with a clear understanding of the current allocation of funds towards employee compensation and to identify disparities between the salaries of senior agency officials and rank-and-file city employees. This analysis aims to uncover instances where high-ranking officials receive significantly higher compensation compared to their subordinates, thereby highlighting potential areas for more equitable and effective use of taxpayer money.</p>
+</section>
+<section id="objective" class="level1">
+<h1>Objective</h1>
+<ul>
+<li>Investigate the highest-paid city employees and job titles.</li>
+<li>Analyze the overtime hours and gross annual pay distributions.</li>
+<li>Understand how the payroll has evolved over the past decade.</li>
+<li>Evaluate potential savings through policy changes, such as salary capping or increasing staffing to reduce overtime.</li>
+</ul>
+</section>
+<section id="key-findings" class="level1">
+<h1>Key Findings:</h1>
+<section id="which-job-title-has-the-highest-base-rate-of-pay" class="level2">
+<h2 class="anchored" data-anchor-id="which-job-title-has-the-highest-base-rate-of-pay">Which job title has the highest base rate of pay?</h2>
+<p>After analyzing the city payroll data, the job title with the highest base rate of pay is identified as Chief Actuary. The average base annual salary for this position is $296,470.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">TITLE DESCRIPTION</th>
+<th style="text-align: right;">AVERAGE SALARY</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Chief Actuary</td>
+<td style="text-align: right;">296470.4</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The job title that has instead the highest hourly rate on avarage is Member, Civilian Complaint Review Board, with an average hourly pay of $319.89.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">TITLE DESCRIPTION</th>
+<th style="text-align: right;">AVERAGE HOURLY PAY</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Member, Civilian Complaint Review Board</td>
+<td style="text-align: right;">319.8927</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>Hourly Rate Determination</strong>: The hourly rate for each job title was extracted from the payroll dataset. <strong>Standard Work Year Assumption</strong>: A standard 2000-hour work year was assumed, representing a full-time employee’s expected annual working hours.</p>
+</section>
+<section id="which-individual-in-what-year-had-the-single-highest-city-total-gross-pay" class="level2">
+<h2 class="anchored" data-anchor-id="which-individual-in-what-year-had-the-single-highest-city-total-gross-pay">Which individual &amp; in what year had the single highest city total gross pay?</h2>
+<p>In this analysis, <strong>gross annual pay</strong> was used as the basis for identifying the employee with the highest earnings. Gross annual pay includes base salary , overtime paid , additional compensation such as bonuses, overtime, and other forms of variable pay.</p>
+<p>This differs from the <strong>annualized base rate pay</strong>, which only accounts for the fixed salary or base compensation, excluding additional earnings like bonuses and overtime.</p>
+<p>The employee with the highest gross annual pay is Mark K. Tettonis, who holds the position of Chief Marine Engineer at the Department Of Transportation with a gross annual salary of $1,689,518 in 2024</p>
+</section>
+<section id="which-individual-worked-the-most-overtime-hours" class="level2">
+<h2 class="anchored" data-anchor-id="which-individual-worked-the-most-overtime-hours">Which individual worked the most overtime hours ?</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 9%">
+<col style="width: 10%">
+<col style="width: 14%">
+<col style="width: 18%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">AGENCY NAME</th>
+<th style="text-align: left;">LAST NAME</th>
+<th style="text-align: left;">FIRST NAME</th>
+<th style="text-align: left;">MIDDLE INITIAL</th>
+<th style="text-align: left;">TITLE DESCRIPTION</th>
+<th style="text-align: right;">TOTAL OVERTIME HOURS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Department Of Correction</td>
+<td style="text-align: left;">Castillo</td>
+<td style="text-align: left;">John</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">Correction Officer</td>
+<td style="text-align: right;">22119.74</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The employee with most overtime hours is John Castillo, working for the Department Of Correction as a Correction Officer with 2.212^{4} hours or about 922 days.</p>
+</section>
+<section id="which-agency-has-the-highest-average-total-annual-payroll" class="level2">
+<h2 class="anchored" data-anchor-id="which-agency-has-the-highest-average-total-annual-payroll">Which agency has the highest average total annual payroll?</h2>
+<p>Here is a list of the 5 agency that have the highest average annual payroll</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">AGENCY NAME</th>
+<th style="text-align: left;">AVERAGE TOTAL PAYROLL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Office Of Collective Bargainin</td>
+<td style="text-align: left;">$105,563</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Financial Info Svcs Agency</td>
+<td style="text-align: left;">$105,437</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">FIRE DEPARTMENT</td>
+<td style="text-align: left;">$100,285</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Office Of The Actuary</td>
+<td style="text-align: left;">$98,543</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Municipal Water Fin Authority</td>
+<td style="text-align: left;">$92,881</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="which-agency-has-the-most-employees-on-payroll-each-year" class="level2">
+<h2 class="anchored" data-anchor-id="which-agency-has-the-most-employees-on-payroll-each-year">Which agency has the most employees on payroll each year?</h2>
+<p>The table show the agency for each fiscal year with the most employee</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">FISCAL YEAR</th>
+<th style="text-align: left;">AGENCY NAME</th>
+<th style="text-align: right;">NUMBER OF EMPLOYEE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2024</td>
+<td style="text-align: left;">DEPARTMENT OF EDUCATION</td>
+<td style="text-align: right;">277082</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2023</td>
+<td style="text-align: left;">DEPARTMENT OF EDUCATION</td>
+<td style="text-align: right;">271265</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2022</td>
+<td style="text-align: left;">DEPARTMENT OF EDUCATION</td>
+<td style="text-align: right;">323651</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">DEPARTMENT OF EDUCATION</td>
+<td style="text-align: right;">285867</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2020</td>
+<td style="text-align: left;">DEPARTMENT OF EDUCATION</td>
+<td style="text-align: right;">294765</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2019</td>
+<td style="text-align: left;">DEPARTMENT OF EDUCATION</td>
+<td style="text-align: right;">292293</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2018</td>
+<td style="text-align: left;">DEPARTMENT OF EDUCATION</td>
+<td style="text-align: right;">256953</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2017</td>
+<td style="text-align: left;">DEPARTMENT OF EDUCATION</td>
+<td style="text-align: right;">249514</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2016</td>
+<td style="text-align: left;">DEPARTMENT OF EDUCATION</td>
+<td style="text-align: right;">249465</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2015</td>
+<td style="text-align: left;">DEPARTMENT OF EDUCATION</td>
+<td style="text-align: right;">282919</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2014</td>
+<td style="text-align: left;">DEPARTMENT OF EDUCATION</td>
+<td style="text-align: right;">241224</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The <strong>DEPARTMENT OF EDUCATION</strong> is the Agency with the most amount of empployee from the Years 2014-2024</p>
+</section>
+<section id="which-agency-has-the-highest-overtime-usage" class="level2">
+<h2 class="anchored" data-anchor-id="which-agency-has-the-highest-overtime-usage">Which agency has the highest overtime usage?</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 32%">
+<col style="width: 31%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">aggregated_agency_name</th>
+<th style="text-align: right;">AVERAGE OVERTIME HOURS</th>
+<th style="text-align: right;">AVERAGE REGULAR HOURS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">FIRE DEPARTMENT</td>
+<td style="text-align: right;">345.3771</td>
+<td style="text-align: right;">1814.047</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Department Of Correction</td>
+<td style="text-align: right;">316.5495</td>
+<td style="text-align: right;">1714.251</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Board Of Election</td>
+<td style="text-align: right;">261.8237</td>
+<td style="text-align: right;">1311.668</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DEPARTMENT OF SANITATION</td>
+<td style="text-align: right;">223.3824</td>
+<td style="text-align: right;">1613.109</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">POLICE DEPARTMENT</td>
+<td style="text-align: right;">211.6590</td>
+<td style="text-align: right;">1698.734</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="what-is-the-average-salary-of-employees-who-work-outside-the-five-boroughs" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-the-average-salary-of-employees-who-work-outside-the-five-boroughs">What is the average salary of employees who work outside the five boroughs?</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">LOCATION OUTSIDE NYC</th>
+<th style="text-align: left;">AVERAGE SALARY</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Albany</td>
+<td style="text-align: left;">$86,340.55</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Delaware</td>
+<td style="text-align: left;">$72,016.17</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Dutchess</td>
+<td style="text-align: left;">$98,397.71</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Greene</td>
+<td style="text-align: left;">$91,328.46</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Nassau</td>
+<td style="text-align: left;">$36,998.58</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Orange</td>
+<td style="text-align: left;">$53,820.85</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Other</td>
+<td style="text-align: left;">$68,563.13</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Putnam</td>
+<td style="text-align: left;">$72,497.18</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Schoharie</td>
+<td style="text-align: left;">$75,467.09</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sullivan</td>
+<td style="text-align: left;">$76,914.40</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ulster</td>
+<td style="text-align: left;">$77,292.72</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Washington Dc</td>
+<td style="text-align: left;">$83,022.62</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Westchester</td>
+<td style="text-align: left;">$78,168.78</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="how-much-has-the-citys-aggregate-payroll-grown-over-the-past-10-years" class="level2">
+<h2 class="anchored" data-anchor-id="how-much-has-the-citys-aggregate-payroll-grown-over-the-past-10-years">How much has the city’s aggregate payroll grown over the past 10 years?</h2>
+<p>The graph belows shows the trend of the city’s aggregate Payroll(in Billions $) by fiscal year.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="mp01_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Over the last 10 years, we have seen an upward trend in the total payroll. The 2014 total payroll is $22,862,581,289, while the 2024 total payroll is $32,148,690,281, with an increase of $9,286,108,991 which is equal 40.62% increase since 2014.</p>
+</section>
+</section>
+<section id="policy-i-capping-salaries-at-mayoral-level" class="level1">
+<h1>Policy I: Capping Salaries at Mayoral Level</h1>
+<section id="table-showing-mayor-eric-l.-adams-carreer" class="level3">
+<h3 class="anchored" data-anchor-id="table-showing-mayor-eric-l.-adams-carreer">Table showing Mayor Eric L. Adams’ carreer</h3>
+<p>The table below shows the salary progression of Mayor Eric L. Adams from 2014 to 2024. By comparing the average salary for each fiscal year, we can examine trends in the mayor’s compensation over time. The table also compares the mayor’s salary to the average salary of other employees in the same fiscal year.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-b14766cd73d6943ce69b" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b14766cd73d6943ce69b">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11"],[2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],["Eric","Eric","Eric","Eric","Eric","Eric","Eric","Eric","Eric","Eric","Eric"],["Adams","Adams","Adams","Adams","Adams","Adams","Adams","Adams","Adams","Adams","Adams"],["L","L","L","L","L","L","L","L","L","L","L"],["Borough President","Borough President","Borough President","Borough President","Borough President","Borough President","Borough President","Borough President","Borough President","Mayor","Mayor"],["Borough President-Brooklyn","Borough President-Brooklyn","Borough President-Brooklyn","Borough President-Brooklyn","Borough President-Brooklyn","Borough President-Brooklyn","Borough President-Brooklyn","Borough President-Brooklyn","Borough President-Brooklyn","Office Of The Mayor","Office Of The Mayor"],["$160,000","$160,000","$179,200","$179,200","$179,200","$179,200","$179,200","$179,200","$218,975","$258,750","$258,750"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Fiscal Year<\/th>\n      <th>First Name<\/th>\n      <th>Last Name<\/th>\n      <th>Middle Initial<\/th>\n      <th>Position<\/th>\n      <th>Agency<\/th>\n      <th>Salary<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":12,"dom":"t","columnDefs":[{"className":"dt-right","targets":1},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Fiscal Year","targets":1},{"name":"First Name","targets":2},{"name":"Last Name","targets":3},{"name":"Middle Initial","targets":4},{"name":"Position","targets":5},{"name":"Agency","targets":6},{"name":"Salary","targets":7}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,12,25,50,100],"rowCallback":"function(row, data, displayNum, displayIndex, dataIndex) {\nvar value=data[1]; $(this.api().cell(row, 1).node()).css({'color':'white'});\nvar value=data[2]; $(this.api().cell(row, 2).node()).css({'color':'white'});\nvar value=data[3]; $(this.api().cell(row, 3).node()).css({'color':'white'});\nvar value=data[4]; $(this.api().cell(row, 4).node()).css({'color':'white'});\nvar value=data[5]; $(this.api().cell(row, 5).node()).css({'color':'white'});\nvar value=data[6]; $(this.api().cell(row, 6).node()).css({'color':'white'});\nvar value=data[7]; $(this.api().cell(row, 7).node()).css({'color':'white'});\nvar value=data[1]; $(this.api().cell(row, 1).node()).css({'color':'white'});\nvar value=data[2]; $(this.api().cell(row, 2).node()).css({'color':'white'});\nvar value=data[3]; $(this.api().cell(row, 3).node()).css({'color':'white'});\nvar value=data[4]; $(this.api().cell(row, 4).node()).css({'color':'white'});\nvar value=data[5]; $(this.api().cell(row, 5).node()).css({'color':'white'});\nvar value=data[6]; $(this.api().cell(row, 6).node()).css({'color':'white'});\nvar value=data[7]; $(this.api().cell(row, 7).node()).css({'color':'white'});\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+</div>
+</div>
+<p>The impact of capping salaries at the mayor’s level would lead to the following:</p>
+<p><strong>Total Savings</strong>: The estimated savings from capping the salaries of overpaid employees is 4.0465256^{8}.</p>
+<p><strong>Agencies and Job Titles Most Affected</strong>: The agencies and job titles most impacted by this policy are: - <strong>Agency</strong>: Dept Of Citywide Admin Svcs - <strong>Job Title</strong>: Stationary Engineer - <strong>Savings from this Agency</strong>: $11,720,430</p>
+<p>Based on the data analysis, we recommend that CATS carefully consider the long-term impacts of this policy on both the budget and employee morale. While capping salaries at the mayor’s level could lead to significant savings, it could also create dissatisfaction among employees in senior or specialized positions.</p>
+<p><strong>Recommendation</strong>: Proceed with implementing this policy but consider transitioning gradually to avoid potential pushback from affected employees. Additional measures should be introduced to ensure employee retention and satisfaction, particularly in roles that require high levels of expertise or leadership.</p>
+</section>
+</section>
+<section id="policy-ii-increasing-staffing-to-reduce-overtime-expenses" class="level1">
+<h1>Policy II: Increasing Staffing to Reduce Overtime Expenses</h1>
+<ul>
+<li>The analysis identifies the <strong>top agencies</strong> and <strong>top job titles</strong> with the highest potential savings from reducing overtime hours.</li>
+</ul>
+<p>The graph below show the Top Agencies with the most amount of overtime , and the potential savings of hiring more employee, thus reducing overtime pay.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="mp01_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The table shows the <strong>Top Agencies</strong> and their potential savings</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">AGENCY</th>
+<th style="text-align: left;">TOTAL SAVINGS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Police Department</td>
+<td style="text-align: left;">$2,707,531,743</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fire Department</td>
+<td style="text-align: left;">$1,423,411,272</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Department Of Correction</td>
+<td style="text-align: left;">$824,929,213</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Department Of Sanitation</td>
+<td style="text-align: left;">$597,971,587</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Nyc Housing Authority</td>
+<td style="text-align: left;">$411,229,111</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Department Of Transportation</td>
+<td style="text-align: left;">$248,215,618</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Dept Of Environment Protection</td>
+<td style="text-align: left;">$187,519,576</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hra/Dept Of Social Services</td>
+<td style="text-align: left;">$181,489,084</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Admin For Children’s Svcs</td>
+<td style="text-align: left;">$157,231,704</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Dept Of Citywide Admin Svcs</td>
+<td style="text-align: left;">$91,669,585</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The table shows the <strong>Top Job Titles</strong> and their potential savings.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">JOB TITLE</th>
+<th style="text-align: left;">TOTAL SAVINGS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Captain</td>
+<td style="text-align: left;">$115,103,683</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Correction Officer</td>
+<td style="text-align: left;">$613,245,406</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sanitation Worker</td>
+<td style="text-align: left;">$402,214,527</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Firefighter</td>
+<td style="text-align: left;">$836,859,022</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lieutenant</td>
+<td style="text-align: left;">$198,745,275</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lieutenant</td>
+<td style="text-align: left;">$138,371,689</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P.o. Da Det Gr3</td>
+<td style="text-align: left;">$367,066,989</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Police Officer</td>
+<td style="text-align: left;">$1,118,448,210</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">School Safety Agent</td>
+<td style="text-align: left;">$152,472,080</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sergeant-</td>
+<td style="text-align: left;">$190,952,015</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Based on the data analysis, we recommend that CATS carefully consider the opportunity to hire more employees in those <strong>Agencies</strong> and <strong>Job Titles</strong> recquiring more than usual overtime hours. This could lead to a significant saving in the city’s Budget. The estimated savings, without taking in consideration any other factors, would be $7,325,009,205.</p>
+<p><strong>Recommendation</strong>: Proceed with implementing this policy but consider the cost of hiring more employees (including potential training), and be aware that in some cases overtime hours may be necessary, especially in case of emergencies.</p>
+</section>
+<section id="policy-iii-strategic-workforce-optimization-for-enhanced-government-efficiency" class="level1">
+<h1>Policy III: Strategic Workforce Optimization for Enhanced Government Efficiency</h1>
+<p>In response to the need for improved efficiency and fiscal responsibility within government operations, the proposed <strong>Strategic Workforce Optimization</strong> policy aims to streamline public sector staffing by implementing targeted position reductions. This policy seeks to align workforce size with essential service delivery requirements, ensuring that taxpayer resources are utilized effectively while maintaining high-quality public services.</p>
+<ul>
+<li><strong>Objective:</strong> Achieve a 5% reduction in workforce across all agencies to eliminate redundancies and enhance operational efficiency.</li>
+<li><strong>Considerations:</strong> Ensure compliance with legal frameworks governing workforce reductions and address potential impacts on employee morale and service delivery.</li>
+</ul>
+<p>This is a summary of the total potential savings by Fiscal Year:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">FISCAL YEAR</th>
+<th style="text-align: left;">TOTAL SAVINGS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2014</td>
+<td style="text-align: left;">$1,097,371,868</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2015</td>
+<td style="text-align: left;">$1,239,585,250</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2016</td>
+<td style="text-align: left;">$1,291,564,508</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2017</td>
+<td style="text-align: left;">$1,325,946,288</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2018</td>
+<td style="text-align: left;">$1,333,319,963</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2019</td>
+<td style="text-align: left;">$1,445,918,518</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2020</td>
+<td style="text-align: left;">$1,534,745,927</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">$1,505,985,834</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2022</td>
+<td style="text-align: left;">$1,647,120,553</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2023</td>
+<td style="text-align: left;">$1,566,858,636</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2024</td>
+<td style="text-align: left;">$1,617,943,127</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>This is a summary of the top Agencies which would mostly benefits from a 5% cut of employees.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 36%">
+<col style="width: 32%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">AGENCY</th>
+<th style="text-align: right;">NUMBER OF POSITIONS TO CUT</th>
+<th style="text-align: left;">AVERAGE SAVING FOR AGENCY</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Dept Of Ed Pedagogical</td>
+<td style="text-align: right;">60366</td>
+<td style="text-align: left;">$504,115,176</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Police Department</td>
+<td style="text-align: right;">33379</td>
+<td style="text-align: left;">$240,553,090</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Fire Department</td>
+<td style="text-align: right;">10458</td>
+<td style="text-align: left;">$86,814,036</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Department Of Correction</td>
+<td style="text-align: right;">6799</td>
+<td style="text-align: left;">$54,078,784</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Dept Of Ed Para Professionals</td>
+<td style="text-align: right;">20631</td>
+<td style="text-align: left;">$51,989,575</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Department Of Education Admin</td>
+<td style="text-align: right;">9059</td>
+<td style="text-align: left;">$51,223,067</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Department Of Sanitation</td>
+<td style="text-align: right;">7041</td>
+<td style="text-align: left;">$46,955,648</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nyc Housing Authority</td>
+<td style="text-align: right;">7745</td>
+<td style="text-align: left;">$44,805,161</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hra/Dept Of Social Services</td>
+<td style="text-align: right;">7895</td>
+<td style="text-align: left;">$42,751,476</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Dept Of Environment Protection</td>
+<td style="text-align: right;">3797</td>
+<td style="text-align: left;">$28,126,481</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<section id="establish-a-workforce-attrition-management-strategy" class="level3">
+<h3 class="anchored" data-anchor-id="establish-a-workforce-attrition-management-strategy">Establish a Workforce Attrition Management Strategy</h3>
+<ul>
+<li>Control hiring to maintain a sustainable workforce size post-reduction.</li>
+<li>Regularly assess staffing needs to ensure that essential services are not compromised.</li>
+</ul>
+</section>
+<section id="enhance-operational-efficiency-through-process-optimization" class="level3">
+<h3 class="anchored" data-anchor-id="enhance-operational-efficiency-through-process-optimization">Enhance Operational Efficiency Through Process Optimization:**</h3>
+<ul>
+<li>Improve service delivery and reduce operational costs.</li>
+<li>Engage employees in identifying inefficiencies and encourage a culture of continuous improvement.</li>
+</ul>
+</section>
+<section id="invest-in-technology-and-training" class="level3">
+<h3 class="anchored" data-anchor-id="invest-in-technology-and-training">Invest in Technology and Training:</h3>
+<ul>
+<li>Equip the workforce with tools and skills to adapt to evolving public service demands.</li>
+<li>Provide training in digital literacy and data-driven decision-making, and invest in technologies that automate routine tasks.</li>
+</ul>
+<p>The <strong>Strategic Workforce Optimization</strong> policy represents a comprehensive approach to refining government operations by thoughtfully reducing workforce size and enhancing efficiency. By implementing these recommendations, agencies can better serve the public while ensuring responsible stewardship of public resources.</p>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>This analysis provides a comprehensive examination of New York City’s payroll expenditures, revealing significant disparities in compensation across various job titles and agencies. The findings highlight critical areas where policy interventions could lead to substantial fiscal savings and promote a more equitable distribution of resources.</p>
+<section id="key-findings-1" class="level2">
+<h2 class="anchored" data-anchor-id="key-findings-1">Key Findings:</h2>
+<ul>
+<li><p><strong>Compensation Disparities</strong>: Positions such as Chief Actuary and Member of the Civilian Complaint Review Board exhibit notably high average salaries and hourly rates, suggesting potential areas for salary standardization.</p></li>
+<li><p><strong>Overtime Expenditures</strong>: Many Departments incur substantial overtime costs, indicating a possible misalignment between staffing levels and workload demands.</p></li>
+<li><p><strong>Agency Payroll Growth</strong>: The consistent increase in average total payrolls across agencies over the past decade necessitates a reevaluation of budgeting and resource allocation strategies.</p></li>
+<li><p><strong>Employee Distribution</strong>: The Department of Education consistently employs the highest number of staff, underscoring its pivotal role in the city’s operations and the potential impact of workforce optimization within this sector.</p></li>
+</ul>
+</section>
+<section id="final-reccommendations" class="level2">
+<h2 class="anchored" data-anchor-id="final-reccommendations">Final Reccommendations</h2>
+<ol type="1">
+<li><strong>Salary Capping</strong>: Consider capping salaries for high-ranking positions to ensure a more equitable distribution of resources.</li>
+<li><strong>Reduce Overtime</strong>: Implement measures to reduce overtime by increasing staffing in critical roles, such as emergency medical technicians and police officers.</li>
+<li><strong>Strategic Workforce Optimization </strong> : refining government operations by thoughtfully reducing workforce size and enhancing efficiency.</li>
+</ol>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/giulioorazzo\.github\.io\/STA9750-2025-SPRING\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
