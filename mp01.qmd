@@ -1,0 +1,618 @@
+---
+title: "City Payroll Data Analysis (Mini Project 1)"
+author: "Giulio Orazzo"
+date: last-modified
+format :
+  html: 
+    code-fold: true
+execute:
+  echo: false
+  output: false
+draft: False
+---
+
+
+
+```{r}
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(readr)
+  library(stringr)
+  library(scales)
+  library(ggplot2)
+  library(knitr)
+  library(DT)
+})
+if(!file.exists("data/mp01/nyc_payroll_export.csv")){
+  dir.create("data/mp01", showWarnings=FALSE, recursive=TRUE)
+  
+  ENDPOINT <- "https://data.cityofnewyork.us/resource/k397-673e.json"
+  
+  if(!require("httr2")) install.packages("httr2")
+  library(httr2)
+  
+  if(!require("jsonlite")) install.packages("jsonlite")
+  library(jsonlite)
+  
+  if(!require("dplyr")) install.packages("dplyr")
+  library(dplyr)
+  
+  if(!require("readr")) install.packages("readr")
+  library(readr)
+  
+  if (!require("scales")) install.packages("scales")
+  library(scales)
+  
+  if (!require("ggplot2")) install.packages("ggplot2")
+  library(ggplot2)
+  
+  if (!require("knitr")) install.packages("knitr")
+  library(knitr)
+  
+  BATCH_SIZE <- 50000
+  OFFSET     <- 0
+  END_OF_EXPORT <- FALSE
+  ALL_DATA <- list()
+  
+  while(!END_OF_EXPORT){
+    cat("Requesting items", OFFSET, "to", BATCH_SIZE + OFFSET, "\n")
+    
+    req <- request(ENDPOINT) |>
+      req_url_query(`$limit`  = BATCH_SIZE, 
+                    `$offset` = OFFSET)
+    
+    resp <- req_perform(req)
+    
+    batch_data <- fromJSON(resp_body_string(resp))
+    
+    ALL_DATA <- c(ALL_DATA, list(batch_data))
+    
+    if(NROW(batch_data) != BATCH_SIZE){
+      END_OF_EXPORT <- TRUE
+      
+      cat("End of Data Export Reached\n")
+    } else {
+      OFFSET <- OFFSET + BATCH_SIZE
+    }
+  }
+  
+  ALL_DATA <- bind_rows(ALL_DATA)
+  
+  cat("Data export complete:", NROW(ALL_DATA), "rows and", NCOL(ALL_DATA), "columns.")
+  
+  write_csv(ALL_DATA, "data/mp01/nyc_payroll_export.csv")
+}
+data <- read_csv("C:/Users/orazz/OneDrive/Documents/STA9750-2025-SPRING/data/mp01/nyc_payroll_export.csv")
+
+data <- data |>
+  mutate(agency_name = str_to_title(agency_name),
+         last_name = str_to_title(last_name),
+         first_name = str_to_title(first_name),
+         work_location_borough = str_to_title(work_location_borough),
+         title_description = str_to_title(title_description),
+         leave_status_as_of_june_30 = str_to_title(leave_status_as_of_june_30)
+  )
+#create unique key identifier
+data<- data|>
+  mutate(primary_key =paste(first_name,
+                            coalesce(mid_init, ""),
+                            last_name)
+         )
+# switch Custodian Engineer from hourly to salary
+data<- data|>
+  mutate(pay_basis = if_else(title_description == "Custodian Engineer" & pay_basis == "per Hour", "per Annum", pay_basis))
+
+data <- data|>
+  mutate( total_pay =case_when(
+    pay_basis == "per Hour" ~ (regular_hours * base_salary ) + (ot_hours *(base_salary * 1.5)),
+    pay_basis == "per Day" ~ (base_salary *(regular_hours / 7.5)) + (ot_hours * (base_salary/7.5)*1.5),
+    pay_basis == "per Annum" ~ (base_salary) + (((base_salary )/ 1950) * ot_hours),
+    pay_basis == "Prorated Annual" ~ regular_gross_paid,
+    TRUE ~ NA_real_
+  ))
+
+```
+# Statement
+As a newly appointed senior technical analyst for New York City's Commission to Analyze Taxpayer Spending (CATS), I have been tasked by Commission Chair Mr. Keno Slum to examine the city's payroll expenditures. The objective is to provide the Commissioners with a clear understanding of the current allocation of funds towards employee compensation and to identify disparities between the salaries of senior agency officials and rank-and-file city employees. This analysis aims to uncover instances where high-ranking officials receive significantly higher compensation compared to their subordinates, thereby highlighting potential areas for more equitable and effective use of taxpayer money.
+
+# Objective
+- Investigate the highest-paid city employees and job titles.
+- Analyze the overtime hours and gross annual pay distributions.
+- Understand how the payroll has evolved over the past decade.
+- Evaluate potential savings through policy changes, such as salary capping or increasing staffing to reduce overtime.
+
+```{r}
+mayor_table <- data |> filter( first_name == "Eric" , last_name == "Adams", mid_init == "L")|>
+  select("First Name" = first_name, 
+         "Last Name"= last_name, 
+         "Middle Initial" = mid_init, 
+         "Fiscal Year" = fiscal_year,
+         "Position" = title_description , 
+         "Agency" = agency_name, 
+         "Salary" = total_pay
+         ) |>
+  arrange(`Fiscal Year`)
+
+mayor_table_avg <- mayor_table |>
+  group_by(`Fiscal Year`) |>
+  summarize(
+    avg_salary = if(n() > 1) mean(Salary, na.rm = TRUE) else first(Salary),
+    .groups = "drop"
+  )
+
+mayor_table <- mayor_table |>
+  left_join(mayor_table_avg, by = "Fiscal Year") |>
+  select(-Salary) |>
+  rename(Salary = avg_salary)
+mayor_table_updated <- mayor_table |> 
+  select(`Fiscal Year`, everything())|>
+  distinct(`Fiscal Year`, .keep_all = TRUE)
+mayor_table_updated$Salary <- dollar(mayor_table_updated$Salary)
+
+```
+
+```{r}
+# Creating hourly rate
+data<- data|>
+  mutate(hourly_rate = case_when(
+    pay_basis == "per Hour" ~ base_salary,
+    pay_basis == "per Day" ~ base_salary / 7.5,
+    pay_basis == "per Annum" ~ base_salary / 2000,
+    pay_basis == "Prorated Annual" ~ base_salary / 2000,
+    TRUE ~ NA_real_))
+# selecting highest paid title by hourly rate
+highest_paid_title <- data|>
+  mutate(hourly_rate = case_when(
+    pay_basis == "per Hour" ~ base_salary,
+    pay_basis == "per Day" ~ base_salary / 7.5,
+    pay_basis == "per Annum" ~ base_salary / 2000,
+    pay_basis == "Prorated Annual" ~ base_salary / 2000,
+    TRUE ~ NA_real_))|>
+  group_by(title_description)|>
+  summarize(max_hourly_rate = mean(hourly_rate , na.rm = TRUE))|>
+  slice_max(order_by = max_hourly_rate, n=1)
+
+highest_salary<- data|>
+  group_by(title_description)|>
+  summarize(avg_tot_pay = mean(total_pay))|>
+  slice_max(order_by = avg_tot_pay , n=1)
+  
+
+```
+# Key Findings:
+
+
+## Which job title has the highest base rate of pay?
+After analyzing the city payroll data, the job title with the highest base rate of pay is identified as `{r} highest_salary$title_description`. The average base annual salary for this position is `{r} dollar(highest_salary$avg_tot_pay)`.
+
+```{r}
+#| output: true
+kable(highest_salary|>
+        rename("TITLE DESCRIPTION" = title_description ,
+               "AVERAGE SALARY" = avg_tot_pay ))
+```
+The job title that has instead the highest hourly rate on avarage is `{r} highest_paid_title$title_description`, with an average hourly pay of `{r} dollar(highest_paid_title$max_hourly_rate)`. 
+
+```{r}
+#| output: true
+kable(highest_paid_title|>
+        rename("TITLE DESCRIPTION" = title_description,
+               "AVERAGE HOURLY PAY" = max_hourly_rate ))
+```
+**Hourly Rate Determination**: The hourly rate for each job title was extracted from the payroll dataset.
+**Standard Work Year Assumption**: A standard 2000-hour work year was assumed, representing a full-time employee's expected annual working hours.
+
+   
+## Which individual & in what year had the single highest city total gross pay?
+
+```{r}
+data<- data|> mutate(
+  gross_annual_pay = regular_gross_paid + total_ot_paid + total_other_pay
+)
+highest_paid_employee <-
+  data |> group_by(fiscal_year)|>
+  slice_max(gross_annual_pay , n= 1)|>
+  select(fiscal_year , title_description, agency_name , first_name, mid_init, last_name, gross_annual_pay)|>
+  ungroup()|>
+  slice_max(gross_annual_pay , n=1)
+```
+In this analysis, **gross annual pay** was used as the basis for identifying the employee with the highest earnings. Gross annual pay includes base salary , overtime paid , additional compensation such as bonuses, overtime, and other forms of variable pay.
+
+This differs from the **annualized base rate pay**, which only accounts for the fixed salary or base compensation, excluding additional earnings like bonuses and overtime.
+
+The employee with the highest gross annual pay is `{r} paste(highest_paid_employee$first_name , if(!is.na(highest_paid_employee$mid_init)){paste(highest_paid_employee$mid_init, ".", sep = "")}else{} , highest_paid_employee$last_name, sep = " ")`, who holds the position of `{r} highest_paid_employee$title_description` at the `{r} highest_paid_employee$agency_name` with a gross annual salary of `{r} dollar(highest_paid_employee$gross_annual_pay)` in `{r} highest_paid_employee$fiscal_year`
+
+## Which individual worked the most overtime hours ?
+
+```{r}
+overtime<- data|>
+  filter(!is.na(last_name))|>
+  group_by(agency_name , last_name, first_name, mid_init, title_description)|>
+  summarize(tot_ot = sum(ot_hours , na.rm = TRUE))|>
+  ungroup()|>
+  slice_max(tot_ot, n=1)
+```
+
+```{r}
+#| output: true
+kable(overtime|>
+        rename("FIRST NAME" = first_name,
+               "LAST NAME" = last_name,
+               "MIDDLE INITIAL" = mid_init,
+               "AGENCY NAME" = agency_name,
+               "TITLE DESCRIPTION" = title_description,
+               "TOTAL OVERTIME HOURS" = tot_ot
+               ))
+```
+The employee with most overtime hours is `{r} paste(overtime$first_name , overtime$last_name , sep = " ")`, working for the `{r} overtime$agency_name` as a `{r} overtime$title_description` with `{r} round(overtime$tot_ot)` hours or about `{r} round(overtime$tot_ot / 24)` days.
+
+## Which agency has the highest average total annual payroll?
+
+Here is a list of the 5 agency that have the highest average annual payroll
+```{r}
+data <- data|>mutate(aggregated_agency_name = replace(agency_name, str_detect(agency_name, "Dept Of Ed"), "DEPARTMENT OF EDUCATION")) |>
+  mutate(aggregated_agency_name = replace(aggregated_agency_name, str_detect(agency_name, "Community Board"), "COMMUNITY BOARD")) |>
+  mutate(aggregated_agency_name = replace(aggregated_agency_name, str_detect(agency_name, "Borough President"), "BOROUGH PRESIDENT")) |>
+  mutate(aggregated_agency_name = replace(aggregated_agency_name, str_detect(agency_name, "District Attorney"), "DISTRICT ATTORNEY")) |>
+  mutate(aggregated_agency_name = replace(aggregated_agency_name, str_detect(agency_name, "Public Administrator"), "PUBLIC ADMINISTRATOR")) |>
+  mutate(aggregated_agency_name = replace(aggregated_agency_name, str_detect(agency_name, "Sanitation"), "DEPARTMENT OF SANITATION")) |>
+  mutate(aggregated_agency_name = replace(aggregated_agency_name, str_detect(agency_name, "Fire Department"), "FIRE DEPARTMENT")) |>
+  mutate(aggregated_agency_name = replace(aggregated_agency_name, str_detect(agency_name, "Police Department"), "POLICE DEPARTMENT")) |>
+  mutate(aggregated_agency_name = replace(aggregated_agency_name, str_detect(agency_name, "Health"), "DEPARTMENT OF HEALTH")) |>
+  mutate(aggregated_agency_name = replace(aggregated_agency_name, str_detect(agency_name, "Transportation"), "DEPARTMENT OF TRANSPORTATION")) |>
+  mutate(aggregated_agency_name = replace(aggregated_agency_name, str_detect(agency_name, "Public Service"), "PUBLIC SERVICE COMMISSION")) |>
+  mutate(aggregated_agency_name = replace(aggregated_agency_name, str_detect(agency_name, "Fire Pension Fund"), "FIRE PENSION FUND")) |>
+  mutate(aggregated_agency_name = replace(aggregated_agency_name, str_detect(agency_name, "DEPT OF ED"), "DEPARTMENT OF EDUCATION")) |>
+  mutate(aggregated_agency_name = replace(aggregated_agency_name, str_detect(agency_name, "PUBLIC ADMINISTRATOR"), "PUBLIC ADMINISTRATOR")) |>
+  mutate(aggregated_agency_name = replace(aggregated_agency_name, str_detect(agency_name, "STATEN ISLAND COMMUNITY BD"), "STATEN ISLAND COMMUNITY BD")) |>
+  mutate(aggregated_agency_name = replace(aggregated_agency_name, str_detect(agency_name, "QUEENS COMMUNITY BOARD"), "QUEENS COMMUNITY BOARD")) |>
+  mutate(aggregated_agency_name = replace(aggregated_agency_name, str_detect(agency_name, "MANHATTAN COMMUNITY BOARD"), "MANHATTAN COMMUNITY BOARD")) |>
+  mutate(aggregated_agency_name = replace(aggregated_agency_name, str_detect(agency_name, "BROOKLYN COMMUNITY BOARD"), "BROOKLYN COMMUNITY BOARD")) |>
+  mutate(aggregated_agency_name = replace(aggregated_agency_name, str_detect(agency_name, "BRONX COMMUNITY BOARD"), "BRONX COMMUNITY BOARD")) |>
+  mutate(aggregated_agency_name = replace(aggregated_agency_name, str_detect(agency_name, "BOROUGH PRESIDENT"), "BOROUGH PRESIDENT")) |>
+  mutate(aggregated_agency_name = replace(aggregated_agency_name, agency_name == "BOARD OF ELECTION POLL WORKERS", "BOARD OF ELECTION")) |>
+  mutate(aggregated_agency_name = replace(aggregated_agency_name, agency_name == "DEPARTMENT OF EDUCATION ADMIN", "DEPARTMENT OF EDUCATION")) |>
+  mutate(aggregated_agency_name = replace(aggregated_agency_name, agency_name == "DOE CUSTODIAL PAYROL", "DEPARTMENT OF EDUCATION"))
+agency_payroll <- data|>
+  group_by(aggregated_agency_name)|>
+  summarize(average_payroll = mean(gross_annual_pay , na.rm = TRUE))|>
+  ungroup()|>
+  slice_max(average_payroll , n = 5 )
+agency_payroll$average_payroll <- dollar(agency_payroll$average_payroll)
+```
+```{r}
+#| output: true
+kable(agency_payroll|>
+        rename("AGENCY NAME" = aggregated_agency_name,
+               "AVERAGE TOTAL PAYROLL" = average_payroll
+               ))
+```
+## Which agency has the most employees on payroll each year?
+
+```{r}
+most_employee <- data|>
+  group_by( fiscal_year , aggregated_agency_name)|>
+  summarize(employee_n = n())|>
+  slice_max(employee_n , n =1)|>
+  arrange(desc(fiscal_year))
+```
+The table show the agency for each fiscal year with the most employee
+```{r}
+#| output: true
+kable(most_employee|>
+        rename(
+               "AGENCY NAME" = aggregated_agency_name,
+               "FISCAL YEAR" = fiscal_year,
+               "NUMBER OF EMPLOYEE" = employee_n
+               ))
+```
+The **DEPARTMENT OF EDUCATION** is the Agency with the most amount of empployee from the Years 2014-2024
+
+## Which agency has the highest overtime usage?
+
+```{r}
+agency_ot <- data |>
+  group_by(aggregated_agency_name) |>
+  summarize(avg_ot = mean(ot_hours), avg_reg_hours = mean(regular_hours)) |>
+  filter(avg_ot != 0) |>
+  arrange(desc(avg_ot)) |>
+  slice_max(avg_ot, n = 5) |>
+  rename(
+    "AVERAGE OVERTIME HOURS" = avg_ot,
+    "AVERAGE REGULAR HOURS" = avg_reg_hours
+  )
+```
+
+```{r}
+#| output: true
+kable(agency_ot)
+```
+## What is the average salary of employees who work outside the five boroughs?
+```{r}
+temp<- data|>
+  filter(!work_location_borough %in% c("Manhattan", "Queens", "Richmond", "Brooklyn", "Bronx",NA))|>
+  group_by(work_location_borough)|>
+  summarize(avg_salary = mean(gross_annual_pay))
+temp$avg_salary <- dollar(temp$avg_salary)
+```
+```{r}
+#| output: true
+kable(temp|> rename(
+  "LOCATION OUTSIDE NYC"= work_location_borough,
+  "AVERAGE SALARY" = avg_salary
+))
+```
+## How much has the city’s aggregate payroll grown over the past 10 years?
+
+The graph belows shows the trend of the city's aggregate Payroll(in Billions $) by fiscal year.
+
+```{r}
+aggregate_payroll <- data|>
+  group_by(fiscal_year)|>
+  summarize(tot_payroll = sum(gross_annual_pay))
+payroll_2014 <- aggregate_payroll |> filter(fiscal_year == 2014)|> pull(tot_payroll)
+payroll_2024 <- aggregate_payroll |> filter(fiscal_year == 2024)|> pull(tot_payroll)
+
+```
+```{r}
+#| output: true
+ggplot(aggregate_payroll, aes(x = fiscal_year, y = tot_payroll)) +
+  geom_line(color = "darkblue", size = 1) +  
+  geom_point(color = "orange", size = 3) +  
+  labs(
+    title = "City's Aggregate Payroll Growth Over the Past 10 Years",
+    x = "Fiscal Year",
+    y = "Total Payroll $ (in Billions)"
+  ) +
+  scale_y_continuous(labels = label_dollar(scale = 1e-9, suffix = "B")) +  
+  scale_x_continuous(breaks = seq(min(aggregate_payroll$fiscal_year), max(aggregate_payroll$fiscal_year), by = 1)) +  
+  theme_minimal()  
+```
+Over the last 10 years, we have seen an upward trend in the total payroll. The 2014 total payroll is `r dollar(payroll_2014)`, while the 2024 total payroll is `r dollar(payroll_2024)`, with an increase of `r dollar(payroll_2024 - payroll_2014)` which is equal `r round((payroll_2024 - payroll_2014) / payroll_2014 * 100, 2)`% increase since 2014.
+
+# Policy I: Capping Salaries at Mayoral Level
+
+### Table showing Mayor Eric L. Adams' carreer
+The table below shows the salary progression of Mayor Eric L. Adams from 2014 to 2024. By comparing the average salary for each fiscal year, we can examine trends in the mayor’s compensation over time. The table also compares the mayor’s salary to the average salary of other employees in the same fiscal year.
+
+```{r , echo = FALSE , output = TRUE}
+datatable(mayor_table_updated , options = list(pageLength =12,
+                                               dom = "t"))|>
+  formatStyle(columns = colnames(mayor_table_updated),
+                                 color = 'white')|>
+  DT:::formatStyle(
+    names(mayor_table_updated),
+    target = 'cell',
+    color = 'white')
+
+```
+
+```{r}
+mayor_salary <- mayor_table|>
+  select(`Fiscal Year` , Salary)|>
+  rename(fiscal_year = `Fiscal Year`)
+overpaid_employees <- data |>
+  left_join(mayor_salary , by = "fiscal_year")
+overpaid_employees <- overpaid_employees |>
+  mutate(
+    savings = total_pay - Salary  
+  )
+
+savings_summary <- overpaid_employees |>
+  summarize(
+    min_savings = min(savings, na.rm = TRUE), 
+    max_savings = max(savings, na.rm = TRUE),
+    mean_savings = mean(savings, na.rm = TRUE),
+    sum_savings = sum(savings, na.rm = TRUE)
+  )
+
+zero_or_negative_savings <- overpaid_employees |>
+  filter(savings <= 0)
+
+missing_or_zero_salary <- overpaid_employees |>
+  filter(is.na(Salary) | Salary == 0 | total_pay == 0)
+
+overpaid_employees_clean <- overpaid_employees |>
+  filter(savings > 0)
+
+total_savings <- overpaid_employees_clean |>
+  summarize(total_savings = sum(savings, na.rm = TRUE))
+
+total_savings$total_savings <- as.numeric(total_savings$total_savings)
+
+affected_agencies <- overpaid_employees_clean |>
+  group_by(agency_name, title_description) |>
+  summarize(
+    total_affected = n(),               
+    total_savings = sum(savings, na.rm = TRUE)  
+  ) |>
+  arrange(desc(total_savings))             
+saving_from_agency <- affected_agencies$total_savings[1]
+saving_from_agency <- dollar(saving_from_agency)
+
+
+```
+The impact of capping salaries at the mayor’s level would lead to the following:
+
+**Total Savings**: The estimated savings from capping the salaries of overpaid employees is `r total_savings$total_savings`.
+
+**Agencies and Job Titles Most Affected**: The agencies and job titles most impacted by this policy are:
+- **Agency**: `r affected_agencies$agency_name[1]`
+- **Job Title**: `r affected_agencies$title_description[1]`
+- **Savings from this Agency**: `{r} format(saving_from_agency, scientific = FALSE)`
+
+Based on the data analysis, we recommend that CATS carefully consider the long-term impacts of this policy on both the budget and employee morale. While capping salaries at the mayor’s level could lead to significant savings, it could also create dissatisfaction among employees in senior or specialized positions.
+
+**Recommendation**: Proceed with implementing this policy but consider transitioning gradually to avoid potential pushback from affected employees. Additional measures should be introduced to ensure employee retention and satisfaction, particularly in roles that require high levels of expertise or leadership.
+
+
+# Policy II: Increasing Staffing to Reduce Overtime Expenses
+
+```{r}
+ot_by_title <- data|>
+  group_by(agency_name , title_description)|>
+  summarize(total_ot_hours = sum(ot_hours , na.rm = TRUE),.groups = 'drop')
+
+full_time_equivalent  <- ot_by_title|>
+  mutate(full_time_equivalents = as.numeric(total_ot_hours) / 2000)
+ot_by_title <- ot_by_title |>
+  left_join(data|>
+              group_by(agency_name , title_description)|>
+              summarize( hourly_rate = mean(hourly_rate ), .groups = 'drop'),
+            by = c("agency_name" , "title_description"))
+ot_by_title <- ot_by_title |>
+  filter(!is.na(hourly_rate))
+ot_by_title <- ot_by_title|>
+  mutate(savings = total_ot_hours * hourly_rate * 1.5 - total_ot_hours * hourly_rate)
+      
+savings_by_agency <- ot_by_title |>
+  group_by(agency_name) |>
+  summarize(
+    tot_savings = sum(savings, na.rm = TRUE),
+    tot_full_time_equivalent = sum(full_time_equivalent$full_time_equivalents, na.rm = TRUE))|>
+  arrange(desc(tot_savings))
+savings_by_agency <- savings_by_agency |>
+  filter(!is.na(tot_savings))  
+top_agencies <- savings_by_agency|>
+  top_n(10, tot_savings)
+top_agencies <- top_agencies|>
+  mutate(tot_savings_milion = tot_savings / 1e6)
+
+top_job_titles <- ot_by_title|>
+  top_n(10, savings)
+sum_of_sav <- sum(savings_by_agency$tot_savings)
+```
+- The analysis identifies the **top agencies** and **top job titles** with the highest potential savings from reducing overtime hours.
+
+The graph below show the Top Agencies with the most amount of overtime , and the potential savings of hiring more employee, thus reducing overtime pay.
+```{r}
+#| output: true
+ggplot(top_agencies, aes(x = reorder(agency_name, tot_savings), y = tot_savings)) +
+  geom_bar(stat = "identity", fill = "darkblue") +
+  coord_flip() +
+  labs(
+    title = "Top Agency Savings (Reducing Overtime)",
+    x = "Agency Name",
+    y = "Total Savings (Millions of $)"
+  ) +
+  scale_y_continuous(labels = label_dollar(scale = 1))
+  
+  
+```
+
+The table shows the **Top Agencies** and their potential savings
+
+```{r}
+#| output: true
+top_agencies$tot_savings <- dollar(top_agencies$tot_savings)
+kable(top_agencies|>
+        select(agency_name , tot_savings)|>
+        rename("AGENCY" = agency_name ,
+               "TOTAL SAVINGS" = tot_savings ))
+```
+
+The table shows the **Top Job Titles** and their potential savings.
+
+```{r}
+#| output: true
+top_job_titles$savings <- dollar(top_job_titles$savings)
+kable(top_job_titles|>
+        select(title_description , savings)|>
+        rename("JOB TITLE" = title_description ,
+               "TOTAL SAVINGS" = savings ))
+```
+Based on the data analysis, we recommend that CATS carefully consider the opportunity to hire more employees in those **Agencies** and **Job Titles** recquiring more than usual overtime hours. This could lead to a significant saving in the city's Budget. The estimated savings, without taking in consideration any other factors, would be `{r} dollar(sum_of_sav)`.
+
+**Recommendation**: Proceed with implementing this policy but consider the cost of hiring more employees (including potential training), and be aware that in some cases overtime hours may be necessary, especially in case of emergencies.
+
+# Policy III: Strategic Workforce Optimization for Enhanced Government Efficiency
+
+In response to the need for improved efficiency and fiscal responsibility within government operations, the proposed **Strategic Workforce Optimization** policy aims to streamline public sector staffing by implementing targeted position reductions. This policy seeks to align workforce size with essential service delivery requirements, ensuring that taxpayer resources are utilized effectively while maintaining high-quality public services.
+
+   - **Objective:** Achieve a 5% reduction in workforce across all agencies to eliminate redundancies and enhance operational efficiency.
+   - **Considerations:** Ensure compliance with legal frameworks governing workforce reductions and address potential impacts on employee morale and service delivery.
+
+```{r}
+data_transformed <- data|>
+  group_by(agency_name, fiscal_year) |>
+  summarize(
+    total_employees = n(),
+    avg_payroll = mean(total_pay, na.rm = TRUE),
+    positions_to_cut = floor(total_employees * 0.05),
+    payroll_savings = positions_to_cut * avg_payroll
+  ) |>
+  ungroup()
+top_agencies_reduction <- data_transformed |>
+  group_by(agency_name) |>
+  summarize(
+    total_positions_to_cut = sum(positions_to_cut, na.rm = TRUE),
+    total_payroll_savings = sum(payroll_savings, na.rm = TRUE),
+    avg_payroll_savings = mean(payroll_savings, na.rm = TRUE)
+  ) |>
+  arrange(desc(total_payroll_savings)) |>
+  slice_head(n = 10)
+top_agencies_reduction$avg_payroll_savings <- dollar(top_agencies_reduction$avg_payroll_savings)
+
+annual_savings <- data_transformed|>
+  group_by(fiscal_year)|>
+  summarize(total_savings = sum(payroll_savings, na.rm = TRUE))
+annual_savings$total_savings  <- dollar(annual_savings$total_savings)
+
+```   
+
+This is a summary of the total potential savings by Fiscal Year:
+
+```{r}
+#| output: true
+kable(annual_savings|>
+        rename( "FISCAL YEAR" = fiscal_year,
+                "TOTAL SAVINGS" = total_savings,
+          
+        ))
+
+```
+
+This is a summary of the top Agencies which would mostly benefits from a 5% cut of employees.
+
+```{r}
+#| output: true
+kable(top_agencies_reduction|>
+        select(agency_name , total_positions_to_cut, avg_payroll_savings)|>
+        rename( "AGENCY" = agency_name,
+                "NUMBER OF POSITIONS TO CUT" = total_positions_to_cut,
+                "AVERAGE SAVING FOR AGENCY" = avg_payroll_savings)
+)
+
+```
+
+### Establish a Workforce Attrition Management Strategy
+   -  Control hiring to maintain a sustainable workforce size post-reduction.
+   -   Regularly assess staffing needs to ensure that essential services are not compromised.
+
+### Enhance Operational Efficiency Through Process Optimization:**
+   -  Improve service delivery and reduce operational costs.
+   -  Engage employees in identifying inefficiencies and encourage a culture of continuous improvement.
+
+### Invest in Technology and Training:
+   - Equip the workforce with tools and skills to adapt to evolving public service demands.
+   -  Provide training in digital literacy and data-driven decision-making, and invest in technologies that automate routine tasks.
+   
+The **Strategic Workforce Optimization** policy represents a comprehensive approach to refining government operations by thoughtfully reducing workforce size and enhancing efficiency. By implementing these recommendations, agencies can better serve the public while ensuring responsible stewardship of public resources.
+
+
+# Conclusion
+This analysis provides a comprehensive examination of New York City's payroll expenditures, revealing significant disparities in compensation across various job titles and agencies. The findings highlight critical areas where policy interventions could lead to substantial fiscal savings and promote a more equitable distribution of resources.
+
+## Key Findings:
+  - **Compensation Disparities**: Positions such as Chief Actuary and Member of the Civilian Complaint Review Board exhibit notably high average salaries and hourly rates, suggesting potential areas for salary standardization.
+
+  - **Overtime Expenditures**: Many Departments incur substantial overtime costs, indicating a possible misalignment between staffing levels and workload demands.
+
+  - **Agency Payroll Growth**: The consistent increase in average total payrolls across agencies over the past decade necessitates a reevaluation of budgeting and resource allocation strategies.
+
+  - **Employee Distribution**: The Department of Education consistently employs the highest number of staff, underscoring its pivotal role in the city's operations and the potential impact of workforce optimization within this sector.
+  
+## Final Reccommendations
+1. **Salary Capping**: Consider capping salaries for high-ranking positions to ensure a more equitable distribution of resources.
+2. **Reduce Overtime**: Implement measures to reduce overtime by increasing staffing in critical roles, such as emergency medical technicians and police officers.
+3. **Strategic Workforce Optimization ** : refining government operations by thoughtfully reducing workforce size and enhancing efficiency.
