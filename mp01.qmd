@@ -5,10 +5,10 @@ date: last-modified
 format :
   html: 
     code-fold: true
+    code-summary: "Show the code"
 execute:
-  echo: false
   output: false
-draft: False
+draft: false
 ---
 
 
@@ -152,6 +152,9 @@ mayor_table_updated$Salary <- dollar(mayor_table_updated$Salary)
 ```
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+#| 
 # Creating hourly rate
 data<- data|>
   mutate(hourly_rate = case_when(
@@ -206,6 +209,7 @@ kable(highest_paid_title|>
 ## Which individual & in what year had the single highest city total gross pay?
 
 ```{r}
+
 data<- data|> mutate(
   gross_annual_pay = regular_gross_paid + total_ot_paid + total_other_pay
 )
@@ -225,6 +229,7 @@ The employee with the highest gross annual pay is `{r} paste(highest_paid_employ
 ## Which individual worked the most overtime hours ?
 
 ```{r}
+
 overtime<- data|>
   filter(!is.na(last_name))|>
   group_by(agency_name , last_name, first_name, mid_init, title_description)|>
@@ -290,6 +295,7 @@ kable(agency_payroll|>
 ## Which agency has the most employees on payroll each year?
 
 ```{r}
+
 most_employee <- data|>
   group_by( fiscal_year , aggregated_agency_name)|>
   summarize(employee_n = n())|>
@@ -311,6 +317,7 @@ The **DEPARTMENT OF EDUCATION** is the Agency with the most amount of empployee 
 ## Which agency has the highest overtime usage?
 
 ```{r}
+
 agency_ot <- data |>
   group_by(aggregated_agency_name) |>
   summarize(avg_ot = mean(ot_hours), avg_reg_hours = mean(regular_hours)) |>
@@ -329,6 +336,7 @@ kable(agency_ot)
 ```
 ## What is the average salary of employees who work outside the five boroughs?
 ```{r}
+
 temp<- data|>
   filter(!work_location_borough %in% c("Manhattan", "Queens", "Richmond", "Brooklyn", "Bronx",NA))|>
   group_by(work_location_borough)|>
@@ -347,6 +355,7 @@ kable(temp|> rename(
 The graph belows shows the trend of the city's aggregate Payroll(in Billions $) by fiscal year.
 
 ```{r}
+
 aggregate_payroll <- data|>
   group_by(fiscal_year)|>
   summarize(tot_payroll = sum(gross_annual_pay))
@@ -449,6 +458,7 @@ Based on the data analysis, we recommend that CATS carefully consider the long-t
 # Policy II: Increasing Staffing to Reduce Overtime Expenses
 
 ```{r}
+
 ot_by_title <- data|>
   group_by(agency_name , title_description)|>
   summarize(total_ot_hours = sum(ot_hours , na.rm = TRUE),.groups = 'drop')
@@ -487,7 +497,7 @@ sum_of_sav <- sum(savings_by_agency$tot_savings)
 The graph below show the Top Agencies with the most amount of overtime , and the potential savings of hiring more employee, thus reducing overtime pay.
 ```{r}
 #| output: true
-ggplot(top_agencies, aes(x = reorder(agency_name, tot_savings), y = tot_savings)) +
+ggplot(top_agencies, aes(x = reorder(agency_name, tot_savings_milion), y = tot_savings_milion)) +
   geom_bar(stat = "identity", fill = "darkblue") +
   coord_flip() +
   labs(
@@ -533,6 +543,7 @@ In response to the need for improved efficiency and fiscal responsibility within
    - **Considerations:** Ensure compliance with legal frameworks governing workforce reductions and address potential impacts on employee morale and service delivery.
 
 ```{r}
+
 data_transformed <- data|>
   group_by(agency_name, fiscal_year) |>
   summarize(
