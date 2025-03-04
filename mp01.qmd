@@ -447,7 +447,9 @@ The impact of capping salaries at the mayor’s level would lead to the followin
 
 **Agencies and Job Titles Most Affected**: The agencies and job titles most impacted by this policy are:
 - **Agency**: `r affected_agencies$agency_name[1]`
+
 - **Job Title**: `r affected_agencies$title_description[1]`
+
 - **Savings from this Agency**: `{r} format(saving_from_agency, scientific = FALSE)`
 
 Based on the data analysis, we recommend that CATS carefully consider the long-term impacts of this policy on both the budget and employee morale. While capping salaries at the mayor’s level could lead to significant savings, it could also create dissatisfaction among employees in senior or specialized positions.
