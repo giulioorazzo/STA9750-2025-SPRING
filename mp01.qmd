@@ -446,6 +446,7 @@ The impact of capping salaries at the mayor’s level would lead to the followin
 **Total Savings**: The estimated savings from capping the salaries of overpaid employees is `r total_savings$total_savings`.
 
 **Agencies and Job Titles Most Affected**: The agencies and job titles most impacted by this policy are:
+
 - **Agency**: `r affected_agencies$agency_name[1]`
 
 - **Job Title**: `r affected_agencies$title_description[1]`
