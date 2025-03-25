@@ -1007,7 +1007,7 @@ ggplot(total_emission, aes(x = agency_size, y = mile_emission, color = agency_si
   theme(plot.margin = unit(c(1, 1, 1, 1), "cm"),
         axis.title = element_text(size = 15),
         plot.title = element_text(size = 20, face = "bold"))+
-  ylim(0, 16.5)
+  ylim(0, 17.5)
 ggsave("plot.png")
   
 ```
