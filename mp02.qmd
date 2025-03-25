@@ -797,8 +797,8 @@ ggplot(combined_data, aes(x = mile_emission, y = agency_size, fill = category)) 
   scale_x_continuous(expand = c(0, 0), limits = c(0, max(combined_data$mile_emission) * 1.1))
 
 ggsave("bar.png")
-
 ```
+!(bar.png)
 This graph compares the emissions per mile for the most efficient transit agency in each size category  against the average emissions for that category. Each bar represents an agency size, with two bars per group: one showing the **average emissions** and the other highlighting the **most efficient agency** in that category.
 
 The most efficient agencies have significantly lower emissions than the average, which suggests that certain agencies have successfully implemented cleaner technologies or more efficient operations. The names of these top-performing agencies are also displayed, emphasizing their standout performance in reducing emissions.
@@ -878,7 +878,7 @@ ggplot(agency_emission_data, aes(x = Emission_Type, y = Value, fill = Emission_T
 ggsave("horizontal.png")
        
 ```
-
+!(horizontal.png)
 The image demonstrates how using **public transportation** helps reduce emissions compared to cars. It shows that larger agencies are able to avoid more emissions because they have more people using public transport. The graph compares the emissions that would have been produced by cars with the emissions that are avoided by using public transportation, highlighting the environmental benefit of shifting away from private car use.
 
 
@@ -1009,6 +1009,7 @@ ggplot(total_emission, aes(x = agency_size, y = mile_emission, color = agency_si
 ggsave("plot.png")
   
 ```
+!(plot.png)
 This graph shows the CO2 emissions per mile for different transit agencies, divided into small, medium, and large categories. Each point represents an agency, with the color indicating its size. The points are spread out to make it easier to see how emissions vary across agencies.
 
 The agencies with the highest emissions in each category are marked with their names displayed next to the points. Lines connect these labels to the points, making it clear which agencies are the biggest polluters.
