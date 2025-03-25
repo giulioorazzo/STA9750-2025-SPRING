@@ -795,7 +795,8 @@ ggplot(combined_data, aes(x = mile_emission, y = agency_size, fill = category)) 
   theme(axis.title = element_text(size = 15),
         plot.title = element_text(size = 20, face = "bold"))+
   scale_x_continuous(expand = c(0, 0), limits = c(0, max(combined_data$mile_emission) * 1.1))
-  
+
+ggsave("bar.png")
 
 ```
 This graph compares the emissions per mile for the most efficient transit agency in each size category  against the average emissions for that category. Each bar represents an agency size, with two bars per group: one showing the **average emissions** and the other highlighting the **most efficient agency** in that category.
@@ -874,7 +875,8 @@ ggplot(agency_emission_data, aes(x = Emission_Type, y = Value, fill = Emission_T
         panel.border = element_blank()) +
   theme(axis.title = element_text(size = 15),
         plot.title = element_text(size = 20, face = "bold", hjust = 0.5))
-
+ggsave("horizontal.png")
+       
 ```
 
 The image demonstrates how using **public transportation** helps reduce emissions compared to cars. It shows that larger agencies are able to avoid more emissions because they have more people using public transport. The graph compares the emissions that would have been produced by cars with the emissions that are avoided by using public transportation, highlighting the environmental benefit of shifting away from private car use.
@@ -1004,7 +1006,7 @@ ggplot(total_emission, aes(x = agency_size, y = mile_emission, color = agency_si
         axis.title = element_text(size = 15),
         plot.title = element_text(size = 20, face = "bold"))+
   ylim(0, 16.5)
-
+ggsave("plot.png")
   
 ```
 This graph shows the CO2 emissions per mile for different transit agencies, divided into small, medium, and large categories. Each point represents an agency, with the color indicating its size. The points are spread out to make it easier to see how emissions vary across agencies.
