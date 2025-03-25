@@ -754,6 +754,7 @@ large_greenest <- large_miles|>
 - ***LARGE*** : *"`{r} large_greenest$first_Agency`"* in `{r} large_greenest$first_City`, `{r} large_greenest$first_state` with `{r} round(large_greenest$mile_emission , digits= 2)`lbs of CO2 emitted per mile travelled
 
 ```{r, fig.width=10, fig.height=7}
+#| output: false
 
 # Calculate the average emission per agency size
 average_emission <- total_emission |>
@@ -846,7 +847,7 @@ kable(em_avoided_awards|>
 
 
 ```{r, fig.width=10, fig.height=7}
-
+#| output: false
 
 # Summarize data by agency size
 agency_emission_data <- total_emission |> 
@@ -984,6 +985,7 @@ kable(worst_polluter|>
 ```
 
 ```{r, fig.width=10, fig.height=7}
+#| output: false
 
 total_emission$first_Agency <- sub(", dba", "", total_emission$first_Agency)
 
