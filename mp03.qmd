@@ -457,7 +457,7 @@ popular_songs|> ggplot(
     axis.title = element_text(size = 16),
     plot.title = element_text(size = 20, face = "bold")
   ) 
-
+ggsave("image1.png")
 ```
 
 The scatterplot shows a wide dispersion of points without a clear linear pattern, indicating a **weak or no strong correlation** between the **popularity index** and the number of **playlist appearances**. While a few popular songs do appear frequently in playlists, many others have high popularity but low appearances, or vice versa. This suggests that playlist frequency alone doesn't strongly predict popularity.
@@ -490,6 +490,7 @@ pop_plot <- ggplot(pop_song_years, aes(x = year, y = avg_pop)) +
   labs(title = "Average Popularity of Songs by Year",
        x = "Year", y = "Average Popularity") +
   theme_bw(base_size = 14)
+ggsave("image2.png")
 
 # Table 
 top_years_table <- pop_song_years |> 
@@ -607,6 +608,8 @@ ggplot(key_frequency, aes(x = as.factor(key), y = count)) +
         axis.text = element_text(size = 12),
         axis.title = element_text(size = 16),
         plot.title = element_text(size = 20, face = "bold"))
+
+ggsave("image3.png")
 ```
 
 ## Track Duration Stats
@@ -667,7 +670,8 @@ ggplot(inner_joined_data, aes(x = duration_min)) +
         axis.title = element_text(size = 16),
         plot.title = element_text(size = 20, face = "bold"))+
   scale_x_continuous(limits = c(0, 10, 2))
-  
+
+ggsave("image4.png")
 ```
 
 # 🎧 Building a Playlist {#Building-a-Playlist}
@@ -1122,6 +1126,7 @@ plot1 <- playlist_features|>
        y = "Value (0 to 1)",
        x = "Track Name",
        color = "Feature")
+ggsave("image5.png")
 
 # Plot 2: Tempo
 plot2 <- playlist_features |>
@@ -1133,10 +1138,9 @@ plot2 <- playlist_features |>
   labs(title = "Tempo Progression",
        y = "Tempo (BPM)",
        x = "Track Name")
+ggsave("image6.png")  
 plot1 / plot2
-  
 
-<<<<<<< HEAD
 ```
 =======
 ```
