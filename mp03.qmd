@@ -11,7 +11,10 @@ format :
     toc-title: "On this page"
     css: styles.css
 execute:
-  output: false
+  echo: true  
+  warning: false
+  message: false
+
 draft: false
 ---
 ## Table of Contents
@@ -1010,6 +1013,9 @@ This approach creates a balanced and diverse playlist, mixing well-known hits wi
 
 ```{r,  echo=FALSE , output = TRUE}
 fin_playlist|>
+  rename("Name" = name,
+         "Artist" = artist_name,
+         "Popularity" = popularity_level)|>
   datatable(options = list(
     initComplete = JS("
       function(settings, json) {
@@ -1045,10 +1051,11 @@ fin_playlist|>
 
 ```{r}
 fin_playlist_12 <- bind_rows(
-  playlist_nonpopular |> sample_n(4),
-  playlist_popular |> filter(popularity_level == "Popular") |> sample_n(4),
-  playlist_popular |> filter(popularity_level == "Very Popular") |> sample_n(4)
-)
+  fin_playlist|> filter(popularity_level == "Not Popular")|> sample_n(4),
+  fin_playlist|> filter(popularity_level == "Popular")|> sample_n(4),
+  fin_playlist|> filter(popularity_level == "Very Popular")|> sample_n(4)
+) 
+  
 
 # audio features for visualization
 playlist_features <- inner_join(fin_playlist_12, inner_joined_data, 
@@ -1066,6 +1073,9 @@ playlist_features_long <- playlist_features |>
 
 ```{r,  echo=FALSE , output = TRUE}
 fin_playlist_12|>
+  rename("Name" = name,
+         "Artist" = artist_name,
+         "Popularity" = popularity_level)|>
   datatable(options = list(pageLength = 12,
     initComplete = JS("
       function(settings, json) {
@@ -1142,6 +1152,4 @@ ggsave("image6.png")
 plot1 / plot2
 
 ```
-=======
-```
->>>>>>> 8b9a6ea3f77d061a75484d804cb61528e7d1713e
+
