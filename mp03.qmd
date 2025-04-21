@@ -16,6 +16,9 @@ execute:
   message: false
 
 draft: false
+project:
+  type: website
+  output-dir: docs
 ---
 ## Table of Contents
 
