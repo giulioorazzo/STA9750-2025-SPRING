@@ -511,7 +511,7 @@ map_data <- map_data |>
 
 ```{r, fig.width=10, fig.height= 8, output = TRUE}
 
-us_plot<-ggplot(map_data) +
+ggplot(map_data) +
   geom_sf(fill = NA, color = "grey", size = 0.1) +
 
   # Arrows for Republican shift (shift_right > 0) - RED
@@ -545,7 +545,6 @@ us_plot<-ggplot(map_data) +
     plot.subtitle  = element_text(hjust = 0.5, size = 12),
     legend.position = "none"  # optional, since color is fixed
   )
-print(us_plot)
 
 ```
 
