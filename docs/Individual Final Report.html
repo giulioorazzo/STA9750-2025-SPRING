@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Giulio Orazzo">
+<meta name="dcterms.date" content="2025-05-20">
+
+<title>Final Individual Report – STA 9750 Submission Material</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-4418bf51ef03b784a8a869d6bbfa3ff6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">STA 9750 Submission Material</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#table-of-contents" id="toc-table-of-contents" class="nav-link active" data-scroll-target="#table-of-contents">Table of Contents</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#research-question" id="toc-research-question" class="nav-link" data-scroll-target="#research-question">Research Question</a></li>
+  <li><a href="#setup-and-data-access" id="toc-setup-and-data-access" class="nav-link" data-scroll-target="#setup-and-data-access">Setup and Data Access:</a></li>
+  <li><a href="#accessing-fred-data" id="toc-accessing-fred-data" class="nav-link" data-scroll-target="#accessing-fred-data">🌐 Accessing FRED Data</a></li>
+  <li><a href="#alpha-vantage-data-function-asset-prices" id="toc-alpha-vantage-data-function-asset-prices" class="nav-link" data-scroll-target="#alpha-vantage-data-function-asset-prices">📊 Alpha Vantage Data Function – Asset Prices</a></li>
+  <li><a href="#data-caching-function" id="toc-data-caching-function" class="nav-link" data-scroll-target="#data-caching-function">📂 Data Caching Function</a></li>
+  </ul></li>
+  <li><a href="#stock-data" id="toc-stock-data" class="nav-link" data-scroll-target="#stock-data">📈 Stock Market Data</a></li>
+  <li><a href="#bond-data" id="toc-bond-data" class="nav-link" data-scroll-target="#bond-data">🏦 Bond ETFs</a>
+  <ul class="collapse">
+  <li><a href="#bnd-vanguard-total-bond-market-etf" id="toc-bnd-vanguard-total-bond-market-etf" class="nav-link" data-scroll-target="#bnd-vanguard-total-bond-market-etf">📘 BND – Vanguard Total Bond Market ETF</a></li>
+  <li><a href="#tlt-ishares-20-year-treasury-bond-etf" id="toc-tlt-ishares-20-year-treasury-bond-etf" class="nav-link" data-scroll-target="#tlt-ishares-20-year-treasury-bond-etf">📗 TLT – iShares 20+ Year Treasury Bond ETF</a></li>
+  <li><a href="#shy-ishares-13-year-treasury-bond-etf" id="toc-shy-ishares-13-year-treasury-bond-etf" class="nav-link" data-scroll-target="#shy-ishares-13-year-treasury-bond-etf">📕 SHY – iShares 1–3 Year Treasury Bond ETF</a></li>
+  </ul></li>
+  <li><a href="#commodities-data" id="toc-commodities-data" class="nav-link" data-scroll-target="#commodities-data">🏠 Commodities Data</a>
+  <ul class="collapse">
+  <li><a href="#financial-metrics" id="toc-financial-metrics" class="nav-link" data-scroll-target="#financial-metrics">📈 Annualized Returns and Risk Metrics</a>
+  <ul class="collapse">
+  <li><a href="#explanation-of-code" id="toc-explanation-of-code" class="nav-link" data-scroll-target="#explanation-of-code">🔍 Explanation of Code</a></li>
+  </ul></li>
+  <li><a href="#financial-metric-formulas" id="toc-financial-metric-formulas" class="nav-link" data-scroll-target="#financial-metric-formulas">📐 Financial Metric Formulas</a>
+  <ul class="collapse">
+  <li><a href="#total-return" id="toc-total-return" class="nav-link" data-scroll-target="#total-return">1. Total Return (%)</a></li>
+  <li><a href="#compound-annual-growth-rate-cagr" id="toc-compound-annual-growth-rate-cagr" class="nav-link" data-scroll-target="#compound-annual-growth-rate-cagr">2. Compound Annual Growth Rate (CAGR %)</a></li>
+  <li><a href="#annualized-volatility" id="toc-annualized-volatility" class="nav-link" data-scroll-target="#annualized-volatility">3. Annualized Volatility</a></li>
+  <li><a href="#sharpe-ratio" id="toc-sharpe-ratio" class="nav-link" data-scroll-target="#sharpe-ratio">4. Sharpe Ratio</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#assets-analysis" id="toc-assets-analysis" class="nav-link" data-scroll-target="#assets-analysis">Assets Analysis</a></li>
+  <li><a href="#international-equity-etfs-vxus-vs.-vea-vs.-vwo" id="toc-international-equity-etfs-vxus-vs.-vea-vs.-vwo" class="nav-link" data-scroll-target="#international-equity-etfs-vxus-vs.-vea-vs.-vwo">International Equity ETFs: VXUS vs.&nbsp;VEA vs.&nbsp;VWO</a></li>
+  <li><a href="#us-vs-international-stocks" id="toc-us-vs-international-stocks" class="nav-link" data-scroll-target="#us-vs-international-stocks">US vs International Stocks</a></li>
+  <li><a href="#bond-analysis" id="toc-bond-analysis" class="nav-link" data-scroll-target="#bond-analysis">Bond Analysis</a></li>
+  <li><a href="#commodities-analysis" id="toc-commodities-analysis" class="nav-link" data-scroll-target="#commodities-analysis">Commodities Analysis</a></li>
+  <li><a href="#adaptive-portfolio" id="toc-adaptive-portfolio" class="nav-link" data-scroll-target="#adaptive-portfolio">📊 Adaptive Portfolio Allocation Based on Age</a>
+  <ul class="collapse">
+  <li><a href="#set-recommended-allocations-by-age" id="toc-set-recommended-allocations-by-age" class="nav-link" data-scroll-target="#set-recommended-allocations-by-age">Set Recommended Allocations by Age</a></li>
+  <li><a href="#adjust-portfolio-using-performance-metrics" id="toc-adjust-portfolio-using-performance-metrics" class="nav-link" data-scroll-target="#adjust-portfolio-using-performance-metrics">Adjust Portfolio Using Performance Metrics</a></li>
+  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works">🔧 How It Works</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Final Individual Report</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Giulio Orazzo </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 20, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="table-of-contents" class="level2">
+<h2 class="anchored" data-anchor-id="table-of-contents">Table of Contents</h2>
+<ol type="1">
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#stock-data">Stock Market Data</a></li>
+<li><a href="#bond-data">Bond Data</a></li>
+<li><a href="#commodities-data">Commodities Data</a></li>
+<li><a href="#financial-metrics">Financial Metrics</a></li>
+<li><a href="#assets-analysis">Assets Analysis</a></li>
+<li><a href="#adaptive-portfolio">Adaptive Portfolio Allocation</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ol>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>In a globalized economy, investors are increasingly looking beyond domestic markets to enhance their portfolio performance. This project explores a key question: <em>“How can integrating a diverse mix of internationally traded funds boost returns compared to relying solely on U.S. funds, all while aligning with individual financial goals and investment time frames?”</em></p>
+<p>Understanding this question is vital for modern investors seeking long-term growth, risk mitigation, and tailored strategies that reflect their unique circumstances. While U.S. markets have historically delivered strong returns, they represent only a portion of global economic activity. Diversifying across international markets offers exposure to different growth cycles, sector strengths, and macroeconomic conditions—potentially improving risk-adjusted returns. This analysis aims to shed light on whether a global investment approach can better serve a wide range of personal financial objectives.</p>
+<section id="research-question" class="level2">
+<h2 class="anchored" data-anchor-id="research-question">Research Question</h2>
+<p>The individual <strong>Research Question</strong> that I have analyzed for this project is:</p>
+<section id="are-developed-international-markets-more-effective-than-emerging-markets-for-long-term-portfolio-growth-and-how-do-they-compare-to-the-united-states" class="level4">
+<h4 class="anchored" data-anchor-id="are-developed-international-markets-more-effective-than-emerging-markets-for-long-term-portfolio-growth-and-how-do-they-compare-to-the-united-states">Are developed international markets more effective than emerging markets for long-term portfolio growth, and how do they compare to the United States?</h4>
+<p>To provide a comprehensive perspective, this project goes beyond equities. It also incorporates additional <strong>asset classes—bonds, real estate investment trusts (REITs), commodities , and inflation-protected securities</strong>—to construct portfolios that are more resilient to market volatility and macroeconomic shifts. These non-equity assets serve as important diversifiers, helping to reduce overall portfolio risk while maintaining potential for steady returns.</p>
+<p>In addition, the project develops an <strong>optimal allocation strategy</strong> tailored to investor age. This dynamic, lifecycle-based approach adjusts asset weights over time to match evolving risk tolerance and investment horizons. Younger investors are allocated toward higher-growth, higher-volatility assets like equities and emerging markets, while older investors transition into more stable assets like bonds and REITs. This adaptive allocation is grounded in modern portfolio theory and aims to balance growth and preservation of capital throughout different life stages.</p>
+</section>
+</section>
+<section id="setup-and-data-access" class="level2">
+<h2 class="anchored" data-anchor-id="setup-and-data-access">Setup and Data Access:</h2>
+<p>This section initializes the environment and defines functions to retrieve monthly time-series data from FRED and Alpha Vantage. These data sources provide the macroeconomic and asset-level information necessary to conduct portfolio return analysis and simulation.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gganimate)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PortfolioAnalytics)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quantmod)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PerformanceAnalytics)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">#setwd("C:/Users/orazz/OneDrive - The City University of New York (1)/MASTER/STA9750-2025-SPRING")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<ul>
+<li><p><strong>Data wrangling</strong>: <code>dplyr</code>, <code>tidyr</code>, <code>purrr</code><br>
+Used to clean, manipulate, and reshape datasets efficiently.</p></li>
+<li><p><strong>Time handling</strong>: <code>lubridate</code><br>
+Simplifies working with dates in time series data.</p></li>
+<li><p><strong>Visualization</strong>: <code>ggplot2</code>, <code>gganimate</code>, <code>ggthemes</code>, <code>kableExtra</code>.<br>
+Enables static and animated plotting, with themes to improve aesthetics.</p></li>
+<li><p><strong>API access</strong>: <code>httr</code>, <code>jsonlite</code><br>
+Used to send HTTP requests and parse JSON responses from the FRED and Alpha Vantage APIs.</p></li>
+</ul>
+</section>
+<section id="accessing-fred-data" class="level2">
+<h2 class="anchored" data-anchor-id="accessing-fred-data">🌐 Accessing FRED Data</h2>
+<p>The following code retrieves macroeconomic time series data (e.g., short-term interest rates or inflation) from the Federal Reserve’s FRED API.</p>
+<ul>
+<li><p>The function accepts a <strong>FRED series ID</strong>.</p></li>
+<li><p>It sends an HTTP request, parses the JSON response, and returns a clean <code>data.frame</code> with <code>date</code> and <code>value</code>.</p></li>
+<li><p>This is later used to calculate real returns or include macro indicators in portfolio modeling.</p></li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>FRED_key <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">"FRED_key.txt"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>get_fred<span class="ot">&lt;-</span> <span class="cf">function</span>(id){</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  base_url <span class="ot">&lt;-</span> <span class="st">"https://api.stlouisfed.org/fred/series/observations?series_id="</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> <span class="fu">GET</span>(<span class="fu">paste0</span>(base_url,id,<span class="st">"&amp;api_key="</span>,FRED_key,<span class="st">"&amp;file_type=json"</span>))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  res_content <span class="ot">&lt;-</span> <span class="fu">content</span>(res, <span class="at">as =</span> <span class="st">"text"</span>, <span class="at">encoding =</span> <span class="st">"UTF-8"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  json <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(res_content)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  data <span class="ot">&lt;-</span>json<span class="sc">$</span>observations</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">value =</span> <span class="fu">as.numeric</span>(value),<span class="co"># immediately convert to usable format</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                         <span class="at">date =</span> <span class="fu">as.Date</span>(date))</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(data)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="alpha-vantage-data-function-asset-prices" class="level2">
+<h2 class="anchored" data-anchor-id="alpha-vantage-data-function-asset-prices">📊 Alpha Vantage Data Function – Asset Prices</h2>
+<p>This function collects <strong>monthly adjusted closing prices</strong> from Alpha Vantage for a given ticker (e.g., SPY, IWM, GLD).</p>
+<ul>
+<li><p>Returns a tidy data frame with adjusted close, dividend, and volume</p></li>
+<li><p>The adjusted close price accounts for splits and dividends, making it appropriate for return calculation.</p></li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>AV_key <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">"Alphavantage_key.txt"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to get data from Alpha Vantage for a given ticker</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>GET_AV <span class="ot">&lt;-</span> <span class="cf">function</span>(ticker){</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;symbol="</span>, ticker,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;apikey="</span>, AV_key</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> <span class="fu">GET</span>(url)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  res_content <span class="ot">&lt;-</span> <span class="fu">content</span>(res, <span class="at">as =</span> <span class="st">"text"</span>, <span class="at">encoding =</span> <span class="st">"UTF-8"</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  j <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(res_content, <span class="at">flatten =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Check if data exists</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(j<span class="sc">$</span><span class="st">`</span><span class="at">Monthly Adjusted Time Series</span><span class="st">`</span>)) {</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(j)  <span class="co"># to show what was returned</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="fu">paste</span>(<span class="st">"No data returned for"</span>, ticker, <span class="st">"- possibly API limit reached or invalid ticker."</span>))</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  data <span class="ot">&lt;-</span> j<span class="sc">$</span><span class="st">`</span><span class="at">Monthly Adjusted Time Series</span><span class="st">`</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> <span class="fu">as.Date</span>(<span class="fu">names</span>(data)),</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">close =</span> <span class="fu">as.numeric</span>(<span class="fu">sapply</span>(data, <span class="st">`</span><span class="at">[[</span><span class="st">`</span>, <span class="st">"4. close"</span>)),</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">adjusted_close =</span> <span class="fu">as.numeric</span>(<span class="fu">sapply</span>(data, <span class="st">`</span><span class="at">[[</span><span class="st">`</span>, <span class="st">"5. adjusted close"</span>)),</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">low =</span> <span class="fu">as.numeric</span>(<span class="fu">sapply</span>(data, <span class="st">`</span><span class="at">[[</span><span class="st">`</span>, <span class="st">"3. low"</span>)),</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">volume =</span> <span class="fu">as.numeric</span>(<span class="fu">sapply</span>(data, <span class="st">`</span><span class="at">[[</span><span class="st">`</span>, <span class="st">"6. volume"</span>)),</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">dividend =</span> <span class="fu">as.numeric</span>(<span class="fu">sapply</span>(data, <span class="st">`</span><span class="at">[[</span><span class="st">`</span>, <span class="st">"7. dividend amount"</span>))</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(df)</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="data-caching-function" class="level2">
+<h2 class="anchored" data-anchor-id="data-caching-function">📂 Data Caching Function</h2>
+<p>To avoid downloading the same data multiple times, I created a function that checks if the data for a specific ticker (like SPY or VXUS) is already saved on my computer.</p>
+<ul>
+<li><p>If it’s not saved yet, it downloads the data and saves it as a CSV file.</p></li>
+<li><p>If it’s already saved, it simply loads the data from the file.</p></li>
+<li><p>This helps save time and avoid hitting limits with the API. It also makes the analysis faster and more efficient.</p></li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>get_or_load_data <span class="ot">&lt;-</span> <span class="cf">function</span>(ticker) {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  filename <span class="ot">&lt;-</span> <span class="fu">paste0</span>(ticker, <span class="st">"_data.csv"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(filename)) {</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">message</span>(<span class="st">"Fetching data for: "</span>, ticker)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    data <span class="ot">&lt;-</span> <span class="fu">GET_AV</span>(ticker)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(data)) {</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">write.csv</span>(data, filename, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">warning</span>(<span class="st">"Data for "</span>, ticker, <span class="st">" could not be retrieved."</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">message</span>(<span class="st">"Loading cached data for: "</span>, ticker)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(filename) <span class="sc">|&gt;</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">as.Date</span>(date))  <span class="co"># ensure date column is in Date format</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  data<span class="sc">$</span>ticker <span class="ot">&lt;-</span> ticker</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(data)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Now apply to each ticker</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>spy_data  <span class="ot">&lt;-</span> <span class="fu">get_or_load_data</span>(<span class="st">"SPY"</span>)</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>mdy_data  <span class="ot">&lt;-</span> <span class="fu">get_or_load_data</span>(<span class="st">"MDY"</span>)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>iwm_data  <span class="ot">&lt;-</span> <span class="fu">get_or_load_data</span>(<span class="st">"IWM"</span>)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>vxus_data <span class="ot">&lt;-</span> <span class="fu">get_or_load_data</span>(<span class="st">"VXUS"</span>)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>vea_data  <span class="ot">&lt;-</span> <span class="fu">get_or_load_data</span>(<span class="st">"VEA"</span>)</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>vwo_data  <span class="ot">&lt;-</span> <span class="fu">get_or_load_data</span>(<span class="st">"VWO"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="stock-data" class="level1">
+<h1>📈 Stock Market Data</h1>
+<p>I used the <code>get_or_load_data()</code> function to download or load historical price data for several key ETFs representing different segments of the global stock market:</p>
+<ul>
+<li><p><strong>SPY</strong> – Tracks the S&amp;P 500, representing large-cap U.S. stocks.</p></li>
+<li><p><strong>MDY</strong> – Tracks the S&amp;P MidCap 400, representing medium-sized U.S. companies.</p></li>
+<li><p><strong>IWM</strong> – Tracks the Russell 2000, which includes small-cap U.S. stocks.</p></li>
+<li><p><strong>VXUS</strong> – Covers the entire international stock market, excluding the U.S.</p></li>
+<li><p><strong>VEA</strong> – Focuses on developed international markets (like Europe, Japan, and Canada).</p></li>
+<li><p><strong>VWO</strong> – Focuses on emerging markets (like China, India, and Brazil).</p></li>
+</ul>
+<p>This selection allows for comparison between U.S. equities and international equities, both developed and emerging, for analyzing long-term growth and diversification.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculating log returns</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>spy_data <span class="ot">&lt;-</span> spy_data <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date) <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_return =</span> <span class="fu">log</span>(adjusted_close <span class="sc">/</span> <span class="fu">lag</span>(adjusted_close)))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>mdy_data <span class="ot">&lt;-</span> mdy_data <span class="sc">|&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date) <span class="sc">|&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_return =</span> <span class="fu">log</span>(adjusted_close <span class="sc">/</span> <span class="fu">lag</span>(adjusted_close)))</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>iwm_data <span class="ot">&lt;-</span> iwm_data <span class="sc">|&gt;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date) <span class="sc">|&gt;</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_return =</span> <span class="fu">log</span>(adjusted_close <span class="sc">/</span> <span class="fu">lag</span>(adjusted_close)))</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>vxus_data <span class="ot">&lt;-</span> vxus_data<span class="sc">|&gt;</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date)<span class="sc">|&gt;</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_return =</span> <span class="fu">log</span>(adjusted_close <span class="sc">/</span> <span class="fu">lag</span>(adjusted_close)))</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>vea_data <span class="ot">&lt;-</span> vea_data<span class="sc">|&gt;</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date)<span class="sc">|&gt;</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_return =</span> <span class="fu">log</span>(adjusted_close <span class="sc">/</span> <span class="fu">lag</span>(adjusted_close)))</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>vwo_data <span class="ot">&lt;-</span> vwo_data<span class="sc">|&gt;</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date)<span class="sc">|&gt;</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_return =</span> <span class="fu">log</span>(adjusted_close <span class="sc">/</span> <span class="fu">lag</span>(adjusted_close)))</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>combined_data_stock <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  spy_data<span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">ticker =</span> <span class="st">"SPY"</span>),</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  mdy_data<span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">ticker =</span> <span class="st">"MDY"</span>),</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>  iwm_data<span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">ticker =</span> <span class="st">"IWM"</span>),</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>  vxus_data<span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">ticker =</span> <span class="st">"VXUS"</span>),</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  vea_data<span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">ticker =</span> <span class="st">"VEA"</span>),</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>  vwo_data<span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">ticker =</span> <span class="st">"VWO"</span>)</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="bond-data" class="level1">
+<h1>🏦 Bond ETFs</h1>
+<p>I incorporated bond ETFs that track actual market prices and total returns. These ETFs offer a practical way to observe bond market performance using tradable instruments. Here’s what each represents:</p>
+<section id="bnd-vanguard-total-bond-market-etf" class="level3">
+<h3 class="anchored" data-anchor-id="bnd-vanguard-total-bond-market-etf">📘 BND – Vanguard Total Bond Market ETF</h3>
+<ul>
+<li><p><strong>Description</strong>: BND seeks to track the performance of the Bloomberg U.S. Aggregate Float Adjusted Bond Index.</p></li>
+<li><p><strong>Coverage</strong>: A broad exposure to the entire U.S. investment-grade bond market, including U.S. Treasuries, agency bonds, mortgage-backed securities (MBS), and corporate bonds.</p></li>
+<li><p><strong>Use in Project</strong>: Represents a diversified proxy for the U.S. bond market, useful for long-term risk and return comparison with equities and international assets.</p></li>
+</ul>
+</section>
+<section id="tlt-ishares-20-year-treasury-bond-etf" class="level3">
+<h3 class="anchored" data-anchor-id="tlt-ishares-20-year-treasury-bond-etf">📗 TLT – iShares 20+ Year Treasury Bond ETF</h3>
+<ul>
+<li><p><strong>Description</strong>: TLT tracks the performance of long-term U.S. Treasury bonds with maturities greater than 20 years.</p></li>
+<li><p><strong>Characteristics</strong>: Highly sensitive to interest rate changes due to long duration; typically experiences more price volatility than short-term bonds.</p></li>
+<li><p><strong>Use in Project</strong>: Provides a view into the performance of long-duration government debt, important for understanding interest rate risk.</p></li>
+</ul>
+</section>
+<section id="shy-ishares-13-year-treasury-bond-etf" class="level3">
+<h3 class="anchored" data-anchor-id="shy-ishares-13-year-treasury-bond-etf">📕 SHY – iShares 1–3 Year Treasury Bond ETF</h3>
+<ul>
+<li><p><strong>Description</strong>: SHY invests in U.S. Treasury bonds with maturities between 1 and 3 years.</p></li>
+<li><p><strong>Characteristics</strong>: Lower duration and volatility; typically used as a safe, short-term investment vehicle.</p></li>
+<li><p><strong>Use in Project</strong>: Serves as a low-risk benchmark to assess the risk-adjusted returns of longer-term bonds and equities.</p></li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>bnd_data <span class="ot">&lt;-</span> <span class="fu">get_or_load_data</span>(<span class="st">"BND"</span>)   <span class="co"># Total bond market</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>tlt_data <span class="ot">&lt;-</span> <span class="fu">get_or_load_data</span>(<span class="st">"TLT"</span>)   <span class="co"># Long-term Treasuries</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>shy_data <span class="ot">&lt;-</span> <span class="fu">get_or_load_data</span>(<span class="st">"SHY"</span>)   <span class="co"># Short-term Treasuries</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># calculating log returns</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>bnd_data <span class="ot">&lt;-</span> bnd_data <span class="sc">|&gt;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date) <span class="sc">|&gt;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_return =</span> <span class="fu">log</span>(adjusted_close <span class="sc">/</span> <span class="fu">lag</span>(adjusted_close)))</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>tlt_data <span class="ot">&lt;-</span> tlt_data <span class="sc">|&gt;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date) <span class="sc">|&gt;</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_return =</span> <span class="fu">log</span>(adjusted_close <span class="sc">/</span> <span class="fu">lag</span>(adjusted_close)))</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>shy_data <span class="ot">&lt;-</span> shy_data <span class="sc">|&gt;</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date) <span class="sc">|&gt;</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_return =</span> <span class="fu">log</span>(adjusted_close <span class="sc">/</span> <span class="fu">lag</span>(adjusted_close)))</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>combined_bond_etfs<span class="ot">&lt;-</span> </span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    bnd_data<span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">ticker =</span> <span class="st">"BND"</span>),</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    tlt_data<span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">ticker =</span> <span class="st">"TLT"</span>),</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    shy_data<span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">ticker =</span> <span class="st">"SHY"</span>)</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="commodities-data" class="level1">
+<h1>🏠 Commodities Data</h1>
+<p>To expand the asset classes in my portfolio analysis beyond just stocks and bonds, I included commodities and real estate data. These help diversify risk and potentially enhance returns across different market cycles. The ETFs I used are:</p>
+<ul>
+<li><p><strong>GLD</strong>: Tracks the price of gold, commonly used as a hedge against inflation and market uncertainty.</p></li>
+<li><p><strong>DBA</strong>: Represents a basket of agricultural commodities, such as wheat, corn, and soybeans, giving exposure to food production trends.</p></li>
+<li><p><strong>VNQ</strong>: A Real Estate Investment Trust (REIT) ETF that provides exposure to U.S. real estate markets, offering income and growth potential separate from traditional equities.</p></li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>combined_data_commodities <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_or_load_data</span>(<span class="st">"VNQ"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(date) <span class="sc">|&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">ticker =</span> <span class="st">"VNQ"</span>),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_or_load_data</span>(<span class="st">"GLD"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(date) <span class="sc">|&gt;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">ticker =</span> <span class="st">"GLD"</span>),</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_or_load_data</span>(<span class="st">"DBA"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(date) <span class="sc">|&gt;</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">ticker =</span> <span class="st">"DBA"</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>combined_data_commodities <span class="ot">&lt;-</span> combined_data_commodities<span class="sc">|&gt;</span> </span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ticker)<span class="sc">|&gt;</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_return =</span> <span class="fu">log</span>(adjusted_close <span class="sc">/</span> <span class="fu">lag</span>(adjusted_close)))<span class="sc">|&gt;</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>combined_data <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  combined_data_stock,</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  combined_data_commodities,</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  combined_bond_etfs</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>start_date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2011-01-01"</span>) </span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>combined_data <span class="ot">&lt;-</span> combined_data <span class="sc">|&gt;</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(date <span class="sc">&gt;=</span> start_date)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="financial-metrics" class="level2">
+<h2 class="anchored" data-anchor-id="financial-metrics">📈 Annualized Returns and Risk Metrics</h2>
+<p>To evaluate long-term performance across different asset classes—including U.S. stocks, international developed markets, and emerging markets—I calculated a set of standardized financial metrics using monthly log return data. The goal was to estimate both total and risk-adjusted returns over the observed period.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>yearly_returns <span class="ot">&lt;-</span> combined_data <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(log_return) <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ticker) <span class="sc">|&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date) <span class="sc">|&gt;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">initial_price =</span> <span class="fu">first</span>(adjusted_close),</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">final_price   =</span> <span class="fu">last</span>(adjusted_close),</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">years         =</span> <span class="fu">as.numeric</span>(<span class="fu">difftime</span>(<span class="fu">last</span>(date), <span class="fu">first</span>(date), <span class="at">units =</span> <span class="st">"days"</span>)) <span class="sc">/</span> <span class="fl">365.25</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_return_pct =</span> (final_price <span class="sc">/</span> initial_price <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">CAGR_pct      =</span> ((final_price <span class="sc">/</span> initial_price)<span class="sc">^</span>(<span class="dv">1</span> <span class="sc">/</span> years) <span class="sc">-</span> <span class="dv">1</span>)  ,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">volatility    =</span> <span class="fu">sd</span>(log_return, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">12</span>) ,</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">sharpe_ratio  =</span> (CAGR_pct  <span class="sc">-</span> <span class="fl">0.02</span>) <span class="sc">/</span> (volatility )</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>yearly_returns<span class="sc">$</span>CAGR_pct <span class="ot">&lt;-</span> yearly_returns<span class="sc">$</span>CAGR_pct <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>yearly_returns<span class="sc">$</span>volatility <span class="ot">&lt;-</span> yearly_returns<span class="sc">$</span>volatility <span class="sc">*</span><span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="explanation-of-code" class="level3">
+<h3 class="anchored" data-anchor-id="explanation-of-code">🔍 Explanation of Code</h3>
+<ul>
+<li><strong><code>drop_na(log_return)</code></strong>: Removes missing values to ensure calculations are valid and consistent across all assets.</li>
+<li><strong><code>group_by(ticker)</code></strong>: Performs all subsequent calculations separately for each asset (ETF) in the dataset.</li>
+<li><strong><code>initial_price</code>, <code>final_price</code></strong>: Capture the first and last adjusted prices for each asset, forming the basis for return calculations.</li>
+<li><strong><code>years</code></strong>: Calculates the total time span (in years) of the available data for each asset.</li>
+<li><strong><code>total_return_pct</code></strong>: Computes the total percentage return over the entire period, from the initial to the final price.</li>
+<li><strong><code>CAGR_pct</code></strong> <em>(Compound Annual Growth Rate)</em>: Reflects the mean annual growth rate of an investment over the time period, accounting for compounding.</li>
+<li><strong><code>volatility</code></strong>: Measures the annualized standard deviation of the monthly log returns, serving as a proxy for investment risk.</li>
+<li><strong><code>sharpe_ratio</code></strong>: Calculates the Sharpe Ratio, which adjusts the return by its risk. It uses a 2% annual risk-free rate to assess how efficiently an asset compensates investors for the risk taken.</li>
+</ul>
+<p>These metrics collectively help compare the long-term performance and risk profile of U.S. markets, developed</p>
+</section>
+</section>
+<section id="financial-metric-formulas" class="level2">
+<h2 class="anchored" data-anchor-id="financial-metric-formulas">📐 Financial Metric Formulas</h2>
+<p>The financial formulas used in the project to calculate <strong>Risk and Returns</strong> or the assets are shown below.</p>
+<section id="total-return" class="level3">
+<h3 class="anchored" data-anchor-id="total-return">1. Total Return (%)</h3>
+<p><span class="math display">\[
+\text{Total Return (\%)} = \left( \frac{P_{\text{final}} - P_{\text{initial}}}{P_{\text{initial}}} \right) \times 100
+\]</span></p>
+<p><strong>Where:</strong></p>
+<ul>
+<li><span class="math inline">\(P_{final}\)</span> : Final price of the asset<br>
+</li>
+<li><span class="math inline">\(P_{initial}\)</span> : Initial price of the asset</li>
+</ul>
+</section>
+<section id="compound-annual-growth-rate-cagr" class="level3">
+<h3 class="anchored" data-anchor-id="compound-annual-growth-rate-cagr">2. Compound Annual Growth Rate (CAGR %)</h3>
+<p><span class="math display">\[
+\text{CAGR \%} = \left( \left( \frac{P_{\text{final}}}{P_{\text{initial}}} \right)^{\frac{1}{n}} - 1 \right) \times 100
+\]</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(n\)</span> : Number of years the asset is held</li>
+</ul>
+<hr>
+</section>
+<section id="annualized-volatility" class="level3">
+<h3 class="anchored" data-anchor-id="annualized-volatility">3. Annualized Volatility</h3>
+<p><span class="math display">\[
+\text{Volatility} = \sigma_{\text{monthly returns}} \times \sqrt{12}
+\]</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(\sigma_{\text{monthly returns}}\)</span> : Standard deviation of monthly log returns</li>
+</ul>
+<hr>
+</section>
+<section id="sharpe-ratio" class="level3">
+<h3 class="anchored" data-anchor-id="sharpe-ratio">4. Sharpe Ratio</h3>
+<p><span class="math display">\[
+\text{Sharpe Ratio} = \frac{\text{CAGR} - r_f}{\text{Volatility}}
+\]</span></p>
+<p>Where:<br>
+- <span class="math inline">\({r_f}\)</span> : Risk-free rate (assumed to be 2% in this project)<br>
+- Volatility: Annualized standard deviation of returns</p>
+</section>
+</section>
+</section>
+<section id="assets-analysis" class="level1">
+<h1>Assets Analysis</h1>
+</section>
+<section id="international-equity-etfs-vxus-vs.-vea-vs.-vwo" class="level1">
+<h1>International Equity ETFs: VXUS vs.&nbsp;VEA vs.&nbsp;VWO</h1>
+<p>When building a diversified portfolio with international exposure, it’s important to understand the different types of global equity ETFs. Below is a summary of three widely used ETFs and their key distinctions:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Comparison of International Market ETFs</caption>
+<colgroup>
+<col style="width: 8%">
+<col style="width: 17%">
+<col style="width: 15%">
+<col style="width: 18%">
+<col style="width: 8%">
+<col style="width: 13%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ticker</th>
+<th style="text-align: right;">Initial Price</th>
+<th style="text-align: right;">Final Price</th>
+<th style="text-align: right;">Total Return %</th>
+<th style="text-align: right;">CAGR %</th>
+<th style="text-align: right;">Volatility</th>
+<th style="text-align: right;">Sharpe Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">VEA</td>
+<td style="text-align: right;">23.94</td>
+<td style="text-align: right;">53.68</td>
+<td style="text-align: right;">124.25</td>
+<td style="text-align: right;">5.82</td>
+<td style="text-align: right;">15.37</td>
+<td style="text-align: right;">0.25</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">VXUS</td>
+<td style="text-align: right;">33.30</td>
+<td style="text-align: right;">64.97</td>
+<td style="text-align: right;">95.13</td>
+<td style="text-align: right;">4.85</td>
+<td style="text-align: right;">15.20</td>
+<td style="text-align: right;">0.19</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">VWO</td>
+<td style="text-align: right;">31.23</td>
+<td style="text-align: right;">46.25</td>
+<td style="text-align: right;">48.09</td>
+<td style="text-align: right;">2.79</td>
+<td style="text-align: right;">17.27</td>
+<td style="text-align: right;">0.05</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>VXUS – Vanguard Total International Stock ETF</strong></p>
+<ul>
+<li><p>Broad exposure to all international markets outside the U.S., including both developed and emerging markets.</p></li>
+<li><p><strong>Developed Markets:</strong> Includes countries like Japan, UK, Canada, and Europe.</p></li>
+<li><p><strong>Emerging Markets:</strong> Includes countries like China, India, Brazil, and South Africa.</p></li>
+<li><p>Ideal for investors seeking a single fund for global diversification beyond the U.S.</p></li>
+</ul>
+<p><strong>VEA – Vanguard FTSE Developed Markets ETF</strong></p>
+<ul>
+<li><p>Tracks developed international markets only, excluding the U.S. and Canada.</p></li>
+<li><p>Countries Included: Japan, UK, France, Germany, Australia, etc.</p></li>
+<li><p>Suitable when the investor wants to separate developed and emerging market exposure.</p></li>
+</ul>
+<p><strong>VWO – Vanguard FTSE Emerging Markets ETF</strong></p>
+<ul>
+<li><p>Focused exclusively on emerging markets.</p></li>
+<li><p>Countries Included: China, India, Brazil, Taiwan, South Africa, etc.</p></li>
+<li><p>Higher Volatility, Higher Growth Potential</p></li>
+<li><p>Used to target higher risk-adjusted returns and diversify geographically from developed markets.</p></li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>rebased_data <span class="ot">&lt;-</span> combined_data_stock<span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(date <span class="sc">&gt;=</span> <span class="fu">as.Date</span>(<span class="st">"2011-01-01"</span>))<span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ticker) <span class="sc">|&gt;</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date) <span class="sc">|&gt;</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rebased =</span> adjusted_close <span class="sc">/</span> <span class="fu">first</span>(adjusted_close) <span class="sc">*</span> <span class="dv">100</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>rebased_data_int <span class="ot">&lt;-</span> combined_data_stock<span class="sc">|&gt;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ticker <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"VXUS"</span>, <span class="st">"VEA"</span>, <span class="st">"VWO"</span>))<span class="sc">|&gt;</span> </span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(date <span class="sc">&gt;=</span> <span class="fu">as.Date</span>(<span class="st">"2011-01-01"</span>))<span class="sc">|&gt;</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ticker) <span class="sc">|&gt;</span> </span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date) <span class="sc">|&gt;</span> </span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rebased =</span> adjusted_close <span class="sc">/</span> <span class="fu">first</span>(adjusted_close) <span class="sc">*</span> <span class="dv">100</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>rebased_data_int<span class="sc">|&gt;</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> rebased, <span class="at">color =</span> ticker)) <span class="sc">+</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.</span>) <span class="sc">+</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Rebased International ETFs"</span>, </span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Index (100 = Start)"</span>, </span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Date"</span>,</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"ETF"</span>)<span class="sc">+</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>)<span class="sc">+</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%Y"</span>, <span class="at">date_breaks =</span> <span class="st">"3 year"</span>)<span class="sc">+</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">100</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"gray60"</span>)<span class="sc">+</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>  <span class="co">#theme(legend.position = "bottom")+</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"Helvetica"</span>, <span class="at">size =</span> <span class="dv">15</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Individual-Final-Report_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The image illustrates the performance of international ETFs over a specified time horizon (15 years).</p>
+</section>
+<section id="us-vs-international-stocks" class="level1">
+<h1>US vs International Stocks</h1>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>US ETFs vs International Market ETFs</caption>
+<colgroup>
+<col style="width: 8%">
+<col style="width: 17%">
+<col style="width: 15%">
+<col style="width: 18%">
+<col style="width: 8%">
+<col style="width: 13%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ticker</th>
+<th style="text-align: right;">Initial Price</th>
+<th style="text-align: right;">Final Price</th>
+<th style="text-align: right;">Total Return %</th>
+<th style="text-align: right;">CAGR %</th>
+<th style="text-align: right;">Volatility</th>
+<th style="text-align: right;">Sharpe Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SPY</td>
+<td style="text-align: right;">99.22</td>
+<td style="text-align: right;">564.34</td>
+<td style="text-align: right;">468.79</td>
+<td style="text-align: right;">12.96</td>
+<td style="text-align: right;">14.16</td>
+<td style="text-align: right;">0.77</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MDY</td>
+<td style="text-align: right;">140.39</td>
+<td style="text-align: right;">538.59</td>
+<td style="text-align: right;">283.64</td>
+<td style="text-align: right;">9.88</td>
+<td style="text-align: right;">17.46</td>
+<td style="text-align: right;">0.45</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">IWM</td>
+<td style="text-align: right;">64.04</td>
+<td style="text-align: right;">200.81</td>
+<td style="text-align: right;">213.55</td>
+<td style="text-align: right;">8.34</td>
+<td style="text-align: right;">19.53</td>
+<td style="text-align: right;">0.32</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">VEA</td>
+<td style="text-align: right;">23.94</td>
+<td style="text-align: right;">53.68</td>
+<td style="text-align: right;">124.25</td>
+<td style="text-align: right;">5.82</td>
+<td style="text-align: right;">15.37</td>
+<td style="text-align: right;">0.25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">VXUS</td>
+<td style="text-align: right;">33.30</td>
+<td style="text-align: right;">64.97</td>
+<td style="text-align: right;">95.13</td>
+<td style="text-align: right;">4.85</td>
+<td style="text-align: right;">15.20</td>
+<td style="text-align: right;">0.19</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">VWO</td>
+<td style="text-align: right;">31.23</td>
+<td style="text-align: right;">46.25</td>
+<td style="text-align: right;">48.09</td>
+<td style="text-align: right;">2.79</td>
+<td style="text-align: right;">17.27</td>
+<td style="text-align: right;">0.05</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>U.S. equity ETFs, particularly those tracking large-cap stocks, have consistently outperformed their international counterparts in terms of both total and risk-adjusted returns. SPY, representing the S&amp;P 500, shows strong growth with relatively moderate volatility, reflecting the strength and stability of the U.S. economy.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>rebased_data<span class="sc">|&gt;</span> <span class="fu">filter</span>(ticker <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"SPY"</span>,<span class="st">"MDY"</span>,<span class="st">"IWM"</span>,<span class="st">"VXUS"</span> , <span class="st">"VEA"</span>, <span class="st">"VWO"</span> ))<span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> rebased, <span class="at">color =</span> ticker)) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.</span>) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Rebased US vs International ETFs"</span>, </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Index (100 = Start)"</span>, </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Date"</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"ETF"</span>)<span class="sc">+</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>)<span class="sc">+</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%Y"</span>, <span class="at">date_breaks =</span> <span class="st">"3 year"</span>)<span class="sc">+</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">100</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"gray60"</span>)<span class="sc">+</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#theme(legend.position = "bottom")+</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"Helvetica"</span>, <span class="at">size =</span> <span class="dv">15</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Individual-Final-Report_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The image illustrates the performance of <strong>U.S. ETFs versus international ETFs</strong> over a specified time horizon (15 years). Key trends highlighted include:</p>
+<p>U.S. ETFs (e.g., SPY, MDY, IWM) generally demonstrate stronger and more consistent growth, reflecting the long-term dominance of the U.S. equity market.</p>
+<p>Developed market ETFs (e.g., VEA, VXUS) show moderate growth with occasional alignment to U.S. trends but exhibit greater volatility due to region-specific economic cycles.</p>
+<p>Emerging market ETFs (e.g., VWO) present higher volatility and weaker long-term returns, likely influenced by geopolitical instability, currency risk, and uneven economic development.</p>
+<p>The chart may show CAGR (Compound Annual Growth Rate), volatility, or cumulative returns, providing a visual summary of how each region contributes to long-term portfolio performance.</p>
+<p>This visual supports the conclusion that while U.S. markets remain dominant, selective diversification into international markets can still offer risk-adjusted benefits, particularly when combined with other asset classes in a globally diversified strategy.</p>
+</section>
+<section id="bond-analysis" class="level1">
+<h1>Bond Analysis</h1>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Comparison of Bond ETFs</caption>
+<colgroup>
+<col style="width: 8%">
+<col style="width: 17%">
+<col style="width: 15%">
+<col style="width: 18%">
+<col style="width: 8%">
+<col style="width: 13%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ticker</th>
+<th style="text-align: right;">Initial Price</th>
+<th style="text-align: right;">Final Price</th>
+<th style="text-align: right;">Total Return %</th>
+<th style="text-align: right;">CAGR %</th>
+<th style="text-align: right;">Volatility</th>
+<th style="text-align: right;">Sharpe Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">BND</td>
+<td style="text-align: right;">53.60</td>
+<td style="text-align: right;">72.57</td>
+<td style="text-align: right;">35.38</td>
+<td style="text-align: right;">2.15</td>
+<td style="text-align: right;">4.59</td>
+<td style="text-align: right;">0.03</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SHY</td>
+<td style="text-align: right;">69.83</td>
+<td style="text-align: right;">82.49</td>
+<td style="text-align: right;">18.14</td>
+<td style="text-align: right;">1.17</td>
+<td style="text-align: right;">1.39</td>
+<td style="text-align: right;">-0.59</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TLT</td>
+<td style="text-align: right;">61.72</td>
+<td style="text-align: right;">87.05</td>
+<td style="text-align: right;">41.04</td>
+<td style="text-align: right;">2.44</td>
+<td style="text-align: right;">13.69</td>
+<td style="text-align: right;">0.03</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The analysis of bond ETFs reveals how different types of bonds contribute to a portfolio’s stability and return potential. Short-term bonds, like those focused on Treasury securities, offer lower volatility and are ideal for preserving capital — but their returns can be limited, especially during rising interest rate environments. Long-term bonds, on the other hand, tend to deliver higher returns over time but come with significantly greater price fluctuations due to their sensitivity to interest rate changes.</p>
+<p>The total bond market ETF provides a more balanced exposure, smoothing out the extremes between short- and long-term options. These differences are crucial when building an age-adjusted portfolio, where younger investors might tolerate more duration risk, while older investors prioritize stability and income.</p>
+<p>Ultimately, bonds serve as a diversification anchor — offering downside protection and income — especially valuable when equities are underperforming. Including a mix of bond types allows for a more resilient portfolio across different market cycles.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>rebased_data_bond <span class="ot">&lt;-</span> combined_bond_etfs<span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(date <span class="sc">&gt;=</span> <span class="fu">as.Date</span>(<span class="st">"2011-01-01"</span>))<span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ticker) <span class="sc">|&gt;</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date) <span class="sc">|&gt;</span> </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rebased =</span> adjusted_close <span class="sc">/</span> <span class="fu">first</span>(adjusted_close) <span class="sc">*</span> <span class="dv">100</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>rebased_data_bond<span class="sc">|&gt;</span> </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> rebased, <span class="at">color =</span> ticker)) <span class="sc">+</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.</span>) <span class="sc">+</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Rebased Bond ETFs"</span>, </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Index (100 = Start)"</span>, </span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Date"</span>,</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"ETF"</span>)<span class="sc">+</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>)<span class="sc">+</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%Y"</span>, <span class="at">date_breaks =</span> <span class="st">"3 year"</span>)<span class="sc">+</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">100</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"gray60"</span>)<span class="sc">+</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  <span class="co">#theme(legend.position = "bottom")+</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"Helvetica"</span>, <span class="at">size =</span> <span class="dv">15</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Individual-Final-Report_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="commodities-analysis" class="level1">
+<h1>Commodities Analysis</h1>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Comparison of Commodities</caption>
+<colgroup>
+<col style="width: 8%">
+<col style="width: 17%">
+<col style="width: 15%">
+<col style="width: 18%">
+<col style="width: 8%">
+<col style="width: 13%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ticker</th>
+<th style="text-align: right;">Initial Price</th>
+<th style="text-align: right;">Final Price</th>
+<th style="text-align: right;">Total Return %</th>
+<th style="text-align: right;">CAGR %</th>
+<th style="text-align: right;">Volatility</th>
+<th style="text-align: right;">Sharpe Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">DBA</td>
+<td style="text-align: right;">30.53</td>
+<td style="text-align: right;">26.99</td>
+<td style="text-align: right;">-11.60</td>
+<td style="text-align: right;">-0.86</td>
+<td style="text-align: right;">12.27</td>
+<td style="text-align: right;">-0.23</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GLD</td>
+<td style="text-align: right;">129.87</td>
+<td style="text-align: right;">298.19</td>
+<td style="text-align: right;">129.61</td>
+<td style="text-align: right;">5.99</td>
+<td style="text-align: right;">15.81</td>
+<td style="text-align: right;">0.25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">VNQ</td>
+<td style="text-align: right;">32.66</td>
+<td style="text-align: right;">89.60</td>
+<td style="text-align: right;">174.37</td>
+<td style="text-align: right;">7.32</td>
+<td style="text-align: right;">17.47</td>
+<td style="text-align: right;">0.30</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Commodities and real assets play a distinctive role in portfolio construction, offering protection against inflation and diversifying away from traditional stock-bond allocations. Among the analyzed assets, agricultural commodities tend to be more volatile and less consistent in generating long-term returns. Their performance is heavily influenced by supply shocks, weather conditions, and geopolitical events, making them less predictable but potentially useful in specific macroeconomic environments.</p>
+<p>Gold stands out as a classic safe-haven asset. While it may not always deliver strong returns year after year, it tends to preserve value during times of economic uncertainty, market stress, or rising inflation. Its long-term performance shows that it can be a useful hedge — especially when other asset classes are struggling.</p>
+<p>Real estate investment trusts (REITs), while technically equities, behave somewhat differently. They provide exposure to income-generating properties and often move with interest rate trends. Their long-term growth has been robust, although they carry equity-like volatility. REITs offer both capital appreciation and yield, making them valuable in balanced or income-focused portfolios.</p>
+<p>Together, these assets strengthen a portfolio by responding to different economic forces than equities or bonds — improving overall diversification and offering unique risk-return characteristics.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>rebased_data_com <span class="ot">&lt;-</span> combined_data_commodities<span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(date <span class="sc">&gt;=</span> <span class="fu">as.Date</span>(<span class="st">"2011-01-01"</span>))<span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ticker) <span class="sc">|&gt;</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date) <span class="sc">|&gt;</span> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rebased =</span> adjusted_close <span class="sc">/</span> <span class="fu">first</span>(adjusted_close) <span class="sc">*</span> <span class="dv">100</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>rebased_data_com<span class="sc">|&gt;</span> </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> rebased, <span class="at">color =</span> ticker)) <span class="sc">+</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.</span>) <span class="sc">+</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Rebased Commodities"</span>, </span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Index (100 = Start)"</span>, </span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Date"</span>,</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"ETF"</span>)<span class="sc">+</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>)<span class="sc">+</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%Y"</span>, <span class="at">date_breaks =</span> <span class="st">"3 year"</span>)<span class="sc">+</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">100</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"gray60"</span>)<span class="sc">+</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  <span class="co">#theme(legend.position = "bottom")+</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"Helvetica"</span>, <span class="at">size =</span> <span class="dv">15</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Individual-Final-Report_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="adaptive-portfolio" class="level1">
+<h1>📊 Adaptive Portfolio Allocation Based on Age</h1>
+<p>To make this portfolio model more realistic, I created a system that adjusts how much a person should invest in different asset classes (stocks, bonds, commodities) based on their age. Younger people can usually take more risk, while older individuals may want more stability.</p>
+<section id="set-recommended-allocations-by-age" class="level3">
+<h3 class="anchored" data-anchor-id="set-recommended-allocations-by-age">Set Recommended Allocations by Age</h3>
+<p>The function <code>get_portfolio_weights()</code> assigns a recommended percentage for each asset class depending on the user’s age:</p>
+<ul>
+<li><p><strong>Younger investors (under 30)</strong>: Heavily invested in stocks (90%), with small portions in bonds and commodities.</p></li>
+<li><p><strong>Older investors</strong>: Gradually shift more money into bonds and commodities, which are considered safer. Going from <strong>agressive</strong> to <strong>balanced</strong> to <strong>conservative</strong> portfolio.</p></li>
+</ul>
+<p>This creates a simple life-cycle investing strategy that adjusts risk exposure over time.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>get_portfolio_weights <span class="ot">&lt;-</span> <span class="cf">function</span>(age) {</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (age <span class="sc">&lt;</span> <span class="dv">30</span>) {</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    weights <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">stocks =</span> <span class="fl">0.90</span>, <span class="at">bonds =</span> <span class="fl">0.05</span>, <span class="at">commodities =</span> <span class="fl">0.05</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (age <span class="sc">&gt;=</span> <span class="dv">30</span> <span class="sc">&amp;</span> age <span class="sc">&lt;=</span> <span class="dv">34</span>) {</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    weights <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">stocks =</span> <span class="fl">0.80</span>, <span class="at">bonds =</span> <span class="fl">0.10</span>, <span class="at">commodities =</span> <span class="fl">0.10</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (age <span class="sc">&gt;=</span> <span class="dv">35</span> <span class="sc">&amp;</span> age <span class="sc">&lt;=</span> <span class="dv">39</span>) {</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    weights <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">stocks =</span> <span class="fl">0.75</span>, <span class="at">bonds =</span> <span class="fl">0.15</span>, <span class="at">commodities =</span> <span class="fl">0.10</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (age <span class="sc">&gt;=</span> <span class="dv">40</span> <span class="sc">&amp;</span> age <span class="sc">&lt;=</span> <span class="dv">44</span>) {</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    weights <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">stocks =</span> <span class="fl">0.70</span>, <span class="at">bonds =</span> <span class="fl">0.20</span>, <span class="at">commodities =</span> <span class="fl">0.10</span>)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (age <span class="sc">&gt;=</span> <span class="dv">45</span> <span class="sc">&amp;</span> age <span class="sc">&lt;=</span> <span class="dv">49</span>) {</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    weights <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">stocks =</span> <span class="fl">0.65</span>, <span class="at">bonds =</span> <span class="fl">0.25</span>, <span class="at">commodities =</span> <span class="fl">0.10</span>)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (age <span class="sc">&gt;=</span> <span class="dv">50</span> <span class="sc">&amp;</span> age <span class="sc">&lt;=</span> <span class="dv">54</span>) {</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    weights <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">stocks =</span> <span class="fl">0.575</span>, <span class="at">bonds =</span> <span class="fl">0.30</span>, <span class="at">commodities =</span> <span class="fl">0.125</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (age <span class="sc">&gt;=</span> <span class="dv">55</span> <span class="sc">&amp;</span> age <span class="sc">&lt;=</span> <span class="dv">59</span>) {</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    weights <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">stocks =</span> <span class="fl">0.50</span>, <span class="at">bonds =</span> <span class="fl">0.35</span>, <span class="at">commodities =</span> <span class="fl">0.15</span>)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (age <span class="sc">&gt;=</span> <span class="dv">60</span> <span class="sc">&amp;</span> age <span class="sc">&lt;=</span> <span class="dv">64</span>) {</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    weights <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">stocks =</span> <span class="fl">0.45</span>, <span class="at">bonds =</span> <span class="fl">0.40</span>, <span class="at">commodities =</span> <span class="fl">0.15</span>)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (age <span class="sc">&gt;=</span> <span class="dv">65</span> <span class="sc">&amp;</span> age <span class="sc">&lt;=</span> <span class="dv">69</span>) {</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    weights <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">stocks =</span> <span class="fl">0.40</span>, <span class="at">bonds =</span> <span class="fl">0.45</span>, <span class="at">commodities =</span> <span class="fl">0.15</span>)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    weights <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">stocks =</span> <span class="fl">0.35</span>, <span class="at">bonds =</span> <span class="fl">0.45</span>, <span class="at">commodities =</span> <span class="fl">0.20</span>)</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(weights)</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="adjust-portfolio-using-performance-metrics" class="level3">
+<h3 class="anchored" data-anchor-id="adjust-portfolio-using-performance-metrics">Adjust Portfolio Using Performance Metrics</h3>
+<p>The <code>assign_weights_by_age()</code> function takes the age-based allocation and distributes it across individual assets (like SPY, TLT, GLD, etc.) using Sharpe ratios—a measure of risk-adjusted return.</p>
+<ul>
+<li><p>Assets with higher Sharpe ratios (better return per unit of risk) get more weight.</p></li>
+<li><p>If bond Sharpe ratios are too low or negative, the function switches to a backup method: using the CAGR-to-volatility ratio as a proxy for return-to-risk (called yield-to-risk).</p></li>
+</ul>
+<p>This ensures that bad-performing bonds don’t drag down the portfolio just because of age-based rules.</p>
+</section>
+<section id="how-it-works" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-works">🔧 How It Works</h3>
+<p>Group assets into: stocks, bonds, and commodities.</p>
+<p>Filter by class, then assign weights:</p>
+<ul>
+<li><p>For bonds, use Sharpe ratios or yield-to-risk if Sharpe is poor.</p></li>
+<li><p>For stocks and commodities, use Sharpe ratios directly.</p></li>
+</ul>
+<p>The final output is a table showing each ticker’s recommended weight in the portfolio based on the user’s age and the asset’s historical performance.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to assign weights based on Sharpe ratios within each class</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>assign_weights_by_age <span class="ot">&lt;-</span> <span class="cf">function</span>(yearly_returns, age) {</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  allocation <span class="ot">&lt;-</span> <span class="fu">get_portfolio_weights</span>(age)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Define ticker groups</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  stock_tickers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"SPY"</span>, <span class="st">"MDY"</span>, <span class="st">"IWM"</span>, <span class="st">"VXUS"</span>, <span class="st">"VWO"</span>, <span class="st">"VEA"</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  bond_tickers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"BND"</span>, <span class="st">"TLT"</span>, <span class="st">"SHY"</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  commodity_tickers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"DBA"</span>, <span class="st">"VNQ"</span>, <span class="st">"GLD"</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Tag each asset by class</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  yearly_returns <span class="ot">&lt;-</span> yearly_returns <span class="sc">|&gt;</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">class =</span> <span class="fu">case_when</span>(</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>      ticker <span class="sc">%in%</span> stock_tickers <span class="sc">~</span> <span class="st">"stocks"</span>,</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>      ticker <span class="sc">%in%</span> bond_tickers <span class="sc">~</span> <span class="st">"bonds"</span>,</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>      ticker <span class="sc">%in%</span> commodity_tickers <span class="sc">~</span> <span class="st">"commodities"</span>,</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"other"</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    ))</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Separate bonds to handle fallback logic</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  bonds <span class="ot">&lt;-</span> yearly_returns <span class="sc">|&gt;</span> <span class="fu">filter</span>(class <span class="sc">==</span> <span class="st">"bonds"</span>)</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  other_assets <span class="ot">&lt;-</span> yearly_returns <span class="sc">|&gt;</span> <span class="fu">filter</span>(class <span class="sc">!=</span> <span class="st">"bonds"</span>)</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Check if all bond Sharpe ratios are &lt;= 0</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>  all_bond_sharpe_negative <span class="ot">&lt;-</span> <span class="fu">all</span>(bonds<span class="sc">$</span>sharpe_ratio <span class="sc">&lt;=</span> <span class="dv">0</span> <span class="sc">|</span> <span class="fu">is.na</span>(bonds<span class="sc">$</span>sharpe_ratio))</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (all_bond_sharpe_negative) {</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Use yield-to-risk ratio for bonds if Sharpe ratios are all bad</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>    bonds <span class="ot">&lt;-</span> bonds <span class="sc">|&gt;</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">yield_to_risk =</span> <span class="fu">ifelse</span>(volatility <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">0</span>, CAGR_pct <span class="sc">/</span> volatility),</span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">raw_weight =</span> yield_to_risk <span class="sc">/</span> <span class="fu">sum</span>(yield_to_risk, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>        <span class="at">final_weight =</span> raw_weight <span class="sc">*</span> allocation[[<span class="st">"bonds"</span>]]</span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Use Sharpe as usual</span></span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>    bonds <span class="ot">&lt;-</span> bonds <span class="sc">|&gt;</span></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(</span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>        <span class="at">adj_sharpe =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(sharpe_ratio) <span class="sc">|</span> sharpe_ratio <span class="sc">&lt;</span> <span class="dv">0</span>, <span class="dv">0</span>, sharpe_ratio),</span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>        <span class="at">raw_weight =</span> adj_sharpe <span class="sc">/</span> <span class="fu">sum</span>(adj_sharpe, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>        <span class="at">final_weight =</span> raw_weight <span class="sc">*</span> allocation[[<span class="st">"bonds"</span>]]</span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Handle other asset classes (stocks, commodities) with Sharpe</span></span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>  other_assets <span class="ot">&lt;-</span> other_assets <span class="sc">|&gt;</span></span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(class <span class="sc">%in%</span> <span class="fu">names</span>(allocation)) <span class="sc">|&gt;</span></span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(class) <span class="sc">|&gt;</span></span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a>      <span class="at">adj_sharpe =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(sharpe_ratio) <span class="sc">|</span> sharpe_ratio <span class="sc">&lt;</span> <span class="dv">0</span>, <span class="dv">0</span>, sharpe_ratio),</span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>      <span class="at">raw_weight =</span> adj_sharpe <span class="sc">/</span> <span class="fu">sum</span>(adj_sharpe, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a>      <span class="at">final_weight =</span> raw_weight <span class="sc">*</span> allocation[class]</span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>()</span>
+<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Combine and return</span></span>
+<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(bonds, other_assets) <span class="sc">|&gt;</span></span>
+<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(ticker, class, CAGR_pct, volatility, sharpe_ratio, final_weight)</span>
+<span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>This project set out to determine whether integrating developed and emerging international equity markets into a portfolio provides a meaningful advantage over U.S.-only investments. The analysis revealed that while U.S. equities continue to offer strong performance, developed international markets (such as those in Europe and Japan) contribute valuable diversification benefits and comparable long-term returns. Emerging markets, while more volatile, can enhance performance when included in moderation — particularly in younger investors’ portfolios with longer time horizons.</p>
+<p>Incorporating <strong>bonds</strong>, <strong>REITs</strong>, and <strong>commodities</strong> such as <strong>gold</strong> and <strong>agriculture</strong> further improved portfolio stability. These asset classes acted as effective risk mitigators, especially during periods of equity market stress, underscoring the importance of multi-asset diversification.</p>
+<p>A key contribution of this project is the creation of a dynamic <strong>age-based allocation model</strong>. By adjusting portfolio weights as an investor ages, the strategy balances the need for capital growth in early years with capital preservation in later stages of life. This lifecycle approach proved effective in maintaining favorable risk-return profiles across varying age brackets.</p>
+<p>Ultimately, the findings support the case for a <strong>globally diversified portfolio</strong> that evolves over time in line with an investor’s changing financial goals and risk tolerance. Embracing international exposure — especially to developed markets — and incorporating non-equity assets can enhance long-term investment outcomes for a wide range of individuals.</p>
+<hr>
+<p>*Prepared for STA 9750 at Baruch College – May 2025. The Money Team: Giulio Orazzo</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/giulioorazzo\.github\.io\/STA9750-2025-SPRING\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
