@@ -12,7 +12,6 @@ format :
     toc-title: "On this page"
 ---
 
-------------------------------------------------------------------------
 
 ## Introduction: Rethinking U.S.-Only Portfolios in a Global Economy
 
@@ -22,7 +21,7 @@ In a globalized investment landscape, many individuals still rely heavily on U.S
 
 Investors face different needs based on their age, income, and financial objectives. A one-size-fits-all U.S.-only portfolio might not offer the best strategy for maximizing growth or managing risk. With access to global markets now easier than ever, we explore whether including international funds offers meaningful advantages—and under what conditions.
 
-------------------------------------------------------------------------
+---
 
 ## Methodology and Analytical Focus
 
@@ -34,7 +33,7 @@ We examined the role of developed and emerging market funds, commodity-linked ET
 
 We used historical data from 2011–2025 and constructed hypothetical portfolios using popular ETFs, including SPY, VEA, VWO, and others. Simulated performance and volatility metrics were compared under different strategies, including rebalancing based on economic signals.
 
-------------------------------------------------------------------------
+---
 
 ## Data Sources and Limitations
 
@@ -53,7 +52,8 @@ We used historical data from 2011–2025 and constructed hypothetical portfolios
 
 To evaluate global diversification strategies, we categorized our ETF selections into three major asset classes: **stocks (equities)**, **bonds (fixed income)**, and **commodities/alternatives**. Each fund offers distinct exposure, risk, and potential return profiles.
 
-------------------------------------------------------------------------
+---
+
 
 ### Stocks (Equity ETFs)
 
@@ -76,7 +76,7 @@ These ETFs provide exposure to U.S. and international stock markets, spanning co
 
 -   **VXUS - Vanguard Total International Stock ETF** Broad exposure to all international markets outside the U.S., including both developed and emerging markets.
 
-------------------------------------------------------------------------
+---
 
 ### Bonds (Fixed Income ETFs)
 
@@ -91,7 +91,7 @@ Bond ETFs contribute portfolio stability and income, and help reduce overall ris
 -   **TLT – 20+ Year Treasury Bond ETF**\
     Tracks long-term U.S. Treasury bonds. Higher duration and more volatility, often used for economic downturn protection.
 
-------------------------------------------------------------------------
+---
 
 ### Commodities & Alternatives
 
@@ -112,7 +112,7 @@ These assets add diversification and serve as hedges against inflation and marke
 
 -   **GDP per capita:** (in U.S. Dollar, not seasonally adjusted, annual)
 
-------------------------------------------------------------------------
+---
 
 ## 📐 Financial Metric Formulas
 
@@ -139,7 +139,7 @@ Where:
 
 -   $n$ : Number of years the asset is held
 
-------------------------------------------------------------------------
+---
 
 ### 3. Annualized Volatility
 
@@ -151,7 +151,7 @@ Where:
 
 -   $\sigma_{\text{monthly returns}}$ : Standard deviation of monthly log returns
 
-------------------------------------------------------------------------
+---
 
 ### 4. Sharpe Ratio
 
@@ -163,27 +163,25 @@ Where:\
 - ${r_f}$ : Risk-free rate (assumed to be 2% in this project)\
 - Volatility: Annualized standard deviation of returns
 
-------------------------------------------------------------------------
+---
 
-## QUESTION 1 - Developed vs Emerging International Markets
+## QUESTION 1 – Developed vs Emerging International Markets
 
 To explore whether developed or emerging international markets offer better long-term performance, we analyzed three popular international equity ETFs:
 
--   **VEA**: Vanguard FTSE Developed Markets ETF
--   **VWO**: Vanguard FTSE Emerging Markets ETF
--   **VXUS**: Vanguard Total International Stock ETF (includes both developed and emerging markets)
+- **VEA**: Vanguard FTSE Developed Markets ETF  
+- **VWO**: Vanguard FTSE Emerging Markets ETF  
+- **VXUS**: Vanguard Total International Stock ETF (includes both developed and emerging markets)
 
 We compared their performance from the start of the dataset (approx. 2011) through early 2025 using key financial metrics: total return, compound annual growth rate (CAGR), volatility, and Sharpe ratio (a measure of risk-adjusted return).
 
-![](docs/international_etf_table.png)
+![International ETF Table](docs/international_etf_table.png)
 
 ### Key Findings
 
--   **VEA (developed markets)** was the top performer across most metrics. It delivered the highest total return (124.25%) and the highest CAGR (5.82%) with a relatively moderate level of volatility. Its Sharpe ratio (0.25) indicates a reasonable tradeoff between risk and return.
-
--   **VXUS**, which includes both developed and emerging markets, had lower returns (95.13%) and a slightly lower Sharpe ratio (0.19). This suggests that including emerging markets may have diluted the overall performance.
-
--   **VWO (emerging markets)** had the lowest return (48.09%) and the lowest risk-adjusted performance, with a Sharpe ratio of just 0.05. Despite a higher level of volatility (17.27%), it did not offer better long-term growth.
+- **VEA (developed markets)** was the top performer across most metrics. It delivered the highest total return (124.25%) and the highest CAGR (5.82%) with a relatively moderate level of volatility. Its Sharpe ratio (0.25) indicates a reasonable tradeoff between risk and return.
+- **VXUS**, which includes both developed and emerging markets, had lower returns (95.13%) and a slightly lower Sharpe ratio (0.19). This suggests that including emerging markets may have diluted the overall performance.
+- **VWO (emerging markets)** had the lowest return (48.09%) and the lowest risk-adjusted performance, with a Sharpe ratio of just 0.05. Despite a higher level of volatility (17.27%), it did not offer better long-term growth.
 
 ### Interpretation
 
@@ -197,7 +195,7 @@ While emerging markets are often associated with high growth potential, our anal
 
 
 
-## QUESTION 2- Rebalancing Equities
+## QUESTION 2 - Rebalancing Equities
 
 In this analysis, we aimed to compare the performance of a traditional 75/25 equity split between developed and emerging markets against a dynamic, signal-based rebalancing strategy.
 
@@ -249,7 +247,7 @@ Our findings echo recent literature:
 -   **Ruano & Barros (2022):** Commodities offer a diversification benefit. We found gold and agriculture ETFs lowered volatility, though performance varied by period.
 -   **Ouoba (2016):** Resource-rich countries can perform well, but political and fiscal instability pose serious risks—our analysis showed mixed results for resource-sector ETFs.
 
-------------------------------------------------------------------------
+---
 
 ## Conclusion and Future Directions
 
@@ -259,7 +257,7 @@ Our findings echo recent literature:
 
 Key takeaways: - A global mix can help with risk-adjusted returns, but U.S. equities still dominate long-term growth. - Limiting international equity exposure to \~20% appears optimal based on our results. - Bonds and commodity ETFs added the most stability to portfolios. - Rebalancing based on GDP/inflation shows potential but may require longer time horizons to fully realize benefits. - Resource-focused ETFs are too volatile to recommend broadly.
 
-------------------------------------------------------------------------
+---
 
 ## Future Considerations
 
@@ -268,12 +266,13 @@ Key takeaways: - A global mix can help with risk-adjusted returns, but U.S. equi
 -   Include tax implications and expense ratios for a more realistic performance picture.
 -   Assess performance during multiple recession periods.
 
-------------------------------------------------------------------------
+---
 
 ## Individual Report Links
 
--   
+- [Giulio Orazzo’s Report – Developed vs. Emerging Markets](https://giulioorazzo.github.io/STA9750-2025-SPRING/Individual%20Final%20Report.html)
+- [Salvatore Davi’s Report – Rebalancing Equities & Resource-Rich Markets](https://sal-davi.github.io/STA9750-2025-SPRING/individual)
 
-------------------------------------------------------------------------
+---
 
 \*Prepared for STA 9750 at Baruch College – May 2025. The Money Team: Giulio Orazzo - Salvatore Davi
