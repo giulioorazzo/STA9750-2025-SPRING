@@ -1,7 +1,6 @@
 ---
 title: "Final Report"
 author: "The Money Team — Giulio Orazzo & Salvatore Davi"
-editor: visual
 date: last-modified
 project:
   type: website
@@ -176,7 +175,7 @@ To explore whether developed or emerging international markets offer better long
 
 We compared their performance from the start of the dataset (approx. 2011) through early 2025 using key financial metrics: total return, compound annual growth rate (CAGR), volatility, and Sharpe ratio (a measure of risk-adjusted return).
 
-![](international_etf_table.png)
+![](docs/international_etf_table.png)
 
 ### Key Findings
 
@@ -192,7 +191,7 @@ While emerging markets are often associated with high growth potential, our anal
 
 ### U.S. vs. International Equity Performance (2011–2025)
 
-![U.S. vs International Equity Performance](US_vs_international.png)
+![U.S. vs International Equity Performance](docs/US_vs_international.png)
 
 > **Insight:** U.S. markets (SPY) outperformed international developed (VEA) and emerging (VWO) markets over this period. However, diversification offered better downside protection during turbulent periods.
 
@@ -208,7 +207,7 @@ Our baseline strategy followed a simple approach: maintain a fixed allocation of
 
 In contrast, the **signal-based rebalancing strategy** adjusted allocations based on economic indicators. Specifically, if the average GDP growth in a group was negative *or* if inflation exceeded **4%**, we interpreted this as a signal of economic stress. In response, we **cut emerging market exposure in half** and reallocated the difference to developed markets. Importantly, the portfolio always remained **fully invested in equities**—we did not shift any assets to cash during rebalancing.
 
-![](cumulative_returns.png)
+![](docs/cumulative_returns.png)
 
 > **Insight:** A constant 75% VEA / 25% VWO allocation slightly underperformed rebalancing strategies based on GDP growth and inflation thresholds. While gains were modest (\~0.004% p.a.), rebalancing avoided worse downturns during periods of emerging market underperformance.
 
@@ -224,7 +223,7 @@ We focused on four countries—**Canada, China, Japan, and South Korea**—where
 
 For instance, **Canada’s XEG.TO ETF** concentrates on energy production, including oil and natural gas, which closely aligns with the country’s resource-driven export economy.
 
-![](annualized_returns.png)
+![](docs/annualized_returns.png)
 
 > **Insight:**
 >
