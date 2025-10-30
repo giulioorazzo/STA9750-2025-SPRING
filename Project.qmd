@@ -2,7 +2,9 @@
 title: "STA 9713 Project"
 author: "Giulio Orazzo"
 date: last-modified
-
+project:
+  type: website
+  output-dir: docs
 format :
   html:
     code-fold: true
@@ -29,7 +31,7 @@ editor: visual
 The first step is to load the data-set and the necessary libraries.
 
 ```{r ,echo=FALSE }
-setwd("C:/Users/orazz/OneDrive - The City University of New York (1)/Documents/STA-9713")
+setwd("C:/Users/orazz/OneDrive - The City University of New York (1)/MASTER/STA9750-2025-SPRING")
 
 ```
 
