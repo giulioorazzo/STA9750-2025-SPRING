@@ -7,6 +7,7 @@ project:
   output-dir: docs
 format :
   html:
+    theme: superhero
     code-fold: true
     code-summary: "Show the code"
     toc: true
